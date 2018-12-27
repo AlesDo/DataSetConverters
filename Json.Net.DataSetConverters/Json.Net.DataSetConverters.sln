@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Json.Net.DataSetConverters", "Json.Net.DataSetConverters\Json.Net.DataSetConverters.fsproj", "{878CFFDA-FEBF-4A34-8311-A58D3E3EF642}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Json.net.DataSetconverters.Tests", "Json.Net.DataSetConverters.Tests\Json.net.DataSetconverters.Tests.fsproj", "{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{878CFFDA-FEBF-4A34-8311-A58D3E3EF642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{878CFFDA-FEBF-4A34-8311-A58D3E3EF642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{878CFFDA-FEBF-4A34-8311-A58D3E3EF642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{878CFFDA-FEBF-4A34-8311-A58D3E3EF642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {807A57BC-E4CA-4B9A-B9DF-CB6DDB158E52}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DataSetExtensions.fs" />
+    <Compile Include="JsonSerializationExtensions.fs" />
+    <Compile Include="PropertyCollectionConverter.fs" />
+    <Compile Include="DataColumnConverter.fs" />
+    <Compile Include="DataSetContractResolver.fs" />
+    <Compile Include="ColumnSerialization.fs" />
+    <Compile Include="ForeignKeyConstraintConverter.fs" />
+    <Compile Include="UniqueConstraintConverter.fs" />
+    <Compile Include="DataRowConverter.fs" />
+    <Compile Include="DataTableConverter.fs" />
+    <Compile Include="DataRelationConverter.fs" />
+    <Compile Include="DataSetConverter.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.5.4" />
+  </ItemGroup>
+</Project>
