@@ -48,7 +48,7 @@ type DataTableConverter() =
             reader.ReadAndAssert();
         reader.ValidateJsonToken(JsonToken.EndArray, ObjectName);
 
-    static let readConstraints(reader: JsonReader, serializer: JsonSerializer, dataTable: DataTable) =
+    static let readConstraints(reader: JsonReader, serializer: JsonSerializer, dataTable: DataTable, skipAdd: bool) =
         reader.ReadAndAssert()
         reader.ValidatePropertyName(Constraints, ObjectName)
         reader.ReadAndAssert()
@@ -56,6 +56,9 @@ type DataTableConverter() =
         reader.ReadAndAssert()
         let uniqueConstraintConverter = UniqueConstraintConverter(dataTable)
         while reader.TokenType <> JsonToken.EndArray do
+         if skipAdd then
+            uniqueConstraintConverter.ReadJson(reader, typeof<UniqueConstraint>, null, serializer) |> ignore
+         else
             dataTable.Constraints.Add(uniqueConstraintConverter.ReadJson(reader, typeof<UniqueConstraint>, null, serializer) :?> UniqueConstraint)
         reader.ValidateJsonToken(JsonToken.EndArray, ObjectName)
 
@@ -116,8 +119,9 @@ type DataTableConverter() =
             dataTable.Prefix <- reader.ReadPropertyFromOutput<string>(serializer, Prefix, ObjectName)
             dataTable.RemotingFormat <- reader.ReadPropertyFromOutput<SerializationFormat>(serializer, RemotingFormat, ObjectName)
             dataTable.TableName <- reader.ReadPropertyFromOutput<string>(serializer, TableName, ObjectName)
-            readColumns(reader, serializer, dataTable, objectType.IsSubclassOf(typeof<DataTable>))
-            readConstraints(reader, serializer, dataTable)
+            let isTypedDataSet =  objectType.IsSubclassOf(typeof<DataTable>)
+            readColumns(reader, serializer, dataTable, isTypedDataSet)
+            readConstraints(reader, serializer, dataTable, isTypedDataSet)
             readRows(reader, serializer, dataTable)
             reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
             dataTable.DisplayExpression <- displayExpression

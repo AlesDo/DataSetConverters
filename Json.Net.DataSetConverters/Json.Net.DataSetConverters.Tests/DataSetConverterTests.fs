@@ -13,6 +13,7 @@ open FsCheck
 open System.Collections.Generic
 open System.Linq
 open TestHelpers
+open Json.Net.DataSetConverters.Tests.TypedDataSets
 
 [<Fact>]
 let ``Empty DataSet serialize deserialize`` () =
@@ -188,3 +189,11 @@ let ``DataSet serialize deserialize multiple empy related tables`` () =
     Assert.Equal("table2", deserializedDataSet.Relations.[3].ParentTable.TableName)
     Assert.Equal("table4", deserializedDataSet.Relations.[3].ChildTable.TableName)
 
+[<Fact>]
+let ``DataSet serialize deserialize empty typed DataSet`` () =
+   let typedDataSet = new TestDataSet()
+
+   let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
+   let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
+
+   Assert.NotNull(deserializedDataSet)

@@ -40,11 +40,11 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
         
         private global::System.Data.DataRelation relationFK_DataTable1_DataTable4;
         
-        private global::System.Data.DataRelation relationFK_DataTable2_DataTable5;
+        private global::System.Data.DataRelation relationFK_DataTable4_DataTable5;
         
         private global::System.Data.DataRelation relationFK_DataTable3_DataTable5;
         
-        private global::System.Data.DataRelation relationFK_DataTable4_DataTable5;
+        private global::System.Data.DataRelation relationFK_DataTable2_DataTable5;
         
         private global::System.Data.DataRelation relationDataTable1_DataTable3;
         
@@ -328,9 +328,9 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             }
             this.relationDataTable6_DataTable6 = this.Relations["DataTable6_DataTable6"];
             this.relationFK_DataTable1_DataTable4 = this.Relations["FK_DataTable1_DataTable4"];
-            this.relationFK_DataTable2_DataTable5 = this.Relations["FK_DataTable2_DataTable5"];
-            this.relationFK_DataTable3_DataTable5 = this.Relations["FK_DataTable3_DataTable5"];
             this.relationFK_DataTable4_DataTable5 = this.Relations["FK_DataTable4_DataTable5"];
+            this.relationFK_DataTable3_DataTable5 = this.Relations["FK_DataTable3_DataTable5"];
+            this.relationFK_DataTable2_DataTable5 = this.Relations["FK_DataTable2_DataTable5"];
             this.relationDataTable1_DataTable3 = this.Relations["DataTable1_DataTable3"];
         }
         
@@ -376,9 +376,9 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_DataTable2_DataTable5", new global::System.Data.DataColumn[] {
-                        this.tableDataTable2.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableDataTable5.DataTable2IdColumn});
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_DataTable4_DataTable5", new global::System.Data.DataColumn[] {
+                        this.tableDataTable4.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDataTable5.DataTable4IdColumn});
             this.tableDataTable5.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
@@ -390,9 +390,9 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_DataTable4_DataTable5", new global::System.Data.DataColumn[] {
-                        this.tableDataTable4.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableDataTable5.DataTable4IdColumn});
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_DataTable2_DataTable5", new global::System.Data.DataColumn[] {
+                        this.tableDataTable2.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDataTable5.DataTable2IdColumn});
             this.tableDataTable5.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
@@ -405,18 +405,18 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                         this.tableDataTable1.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableDataTable4.DataTable1IdColumn}, false);
             this.Relations.Add(this.relationFK_DataTable1_DataTable4);
-            this.relationFK_DataTable2_DataTable5 = new global::System.Data.DataRelation("FK_DataTable2_DataTable5", new global::System.Data.DataColumn[] {
-                        this.tableDataTable2.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableDataTable5.DataTable2IdColumn}, false);
-            this.Relations.Add(this.relationFK_DataTable2_DataTable5);
-            this.relationFK_DataTable3_DataTable5 = new global::System.Data.DataRelation("FK_DataTable3_DataTable5", new global::System.Data.DataColumn[] {
-                        this.tableDataTable3.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableDataTable5.DataTable3IdColumn}, false);
-            this.Relations.Add(this.relationFK_DataTable3_DataTable5);
             this.relationFK_DataTable4_DataTable5 = new global::System.Data.DataRelation("FK_DataTable4_DataTable5", new global::System.Data.DataColumn[] {
                         this.tableDataTable4.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableDataTable5.DataTable4IdColumn}, false);
             this.Relations.Add(this.relationFK_DataTable4_DataTable5);
+            this.relationFK_DataTable3_DataTable5 = new global::System.Data.DataRelation("FK_DataTable3_DataTable5", new global::System.Data.DataColumn[] {
+                        this.tableDataTable3.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDataTable5.DataTable3IdColumn}, false);
+            this.Relations.Add(this.relationFK_DataTable3_DataTable5);
+            this.relationFK_DataTable2_DataTable5 = new global::System.Data.DataRelation("FK_DataTable2_DataTable5", new global::System.Data.DataColumn[] {
+                        this.tableDataTable2.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDataTable5.DataTable2IdColumn}, false);
+            this.Relations.Add(this.relationFK_DataTable2_DataTable5);
             this.relationDataTable1_DataTable3 = new global::System.Data.DataRelation("DataTable1_DataTable3", new global::System.Data.DataColumn[] {
                         this.tableDataTable1.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableDataTable3.DataTable1IdColumn}, false);
@@ -543,6 +543,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnParentId;
             
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnDateTimeValue;
+            
+            private global::System.Data.DataColumn columnDateTimeOffsetValue;
+            
+            private global::System.Data.DataColumn columnTimeSpanValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable6DataTable() {
@@ -594,6 +602,38 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DateTimeValueColumn {
+                get {
+                    return this.columnDateTimeValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DateTimeOffsetValueColumn {
+                get {
+                    return this.columnDateTimeOffsetValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TimeSpanValueColumn {
+                get {
+                    return this.columnTimeSpanValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -629,11 +669,15 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable6Row AddChildDataTable6Row(DataTable6Row parentDataTable6RowByDataTable6_DataTable6) {
+            public DataTable6Row AddDataTable6Row(DataTable6Row parentDataTable6RowByDataTable6_DataTable6, string Name, System.DateTime DateTimeValue, System.DateTimeOffset DateTimeOffsetValue, System.TimeSpan TimeSpanValue) {
                 DataTable6Row rowDataTable6Row = ((DataTable6Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null};
+                        null,
+                        Name,
+                        DateTimeValue,
+                        DateTimeOffsetValue,
+                        TimeSpanValue};
                 if ((parentDataTable6RowByDataTable6_DataTable6 != null)) {
                     columnValuesArray[1] = parentDataTable6RowByDataTable6_DataTable6[0];
                 }
@@ -668,6 +712,10 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnParentId = base.Columns["ParentId"];
+                this.columnName = base.Columns["Name"];
+                this.columnDateTimeValue = base.Columns["DateTimeValue"];
+                this.columnDateTimeOffsetValue = base.Columns["DateTimeOffsetValue"];
+                this.columnTimeSpanValue = base.Columns["TimeSpanValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -677,6 +725,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnId);
                 this.columnParentId = new global::System.Data.DataColumn("ParentId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnParentId);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDateTimeValue = new global::System.Data.DataColumn("DateTimeValue", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateTimeValue);
+                this.columnDateTimeOffsetValue = new global::System.Data.DataColumn("DateTimeOffsetValue", typeof(global::System.DateTimeOffset), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateTimeOffsetValue);
+                this.columnTimeSpanValue = new global::System.Data.DataColumn("TimeSpanValue", typeof(global::System.TimeSpan), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTimeSpanValue);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -822,6 +878,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnName;
             
+            private global::System.Data.DataColumn columnSByteValue;
+            
+            private global::System.Data.DataColumn columnUInt16Value;
+            
+            private global::System.Data.DataColumn columnUInt32Value;
+            
+            private global::System.Data.DataColumn columnUInt64Value;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable1DataTable() {
@@ -873,6 +937,38 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SByteValueColumn {
+                get {
+                    return this.columnSByteValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt16ValueColumn {
+                get {
+                    return this.columnUInt16Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt32ValueColumn {
+                get {
+                    return this.columnUInt32Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt64ValueColumn {
+                get {
+                    return this.columnUInt64Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -908,11 +1004,15 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable1Row AddDataTable1Row(string Name) {
+            public DataTable1Row AddDataTable1Row(string Name, sbyte SByteValue, ushort UInt16Value, uint UInt32Value, ulong UInt64Value) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Name};
+                        Name,
+                        SByteValue,
+                        UInt16Value,
+                        UInt32Value,
+                        UInt64Value};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
@@ -944,6 +1044,10 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnName = base.Columns["Name"];
+                this.columnSByteValue = base.Columns["SByteValue"];
+                this.columnUInt16Value = base.Columns["UInt16Value"];
+                this.columnUInt32Value = base.Columns["UInt32Value"];
+                this.columnUInt64Value = base.Columns["UInt64Value"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -953,6 +1057,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnId);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
+                this.columnSByteValue = new global::System.Data.DataColumn("SByteValue", typeof(sbyte), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSByteValue);
+                this.columnUInt16Value = new global::System.Data.DataColumn("UInt16Value", typeof(ushort), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt16Value);
+                this.columnUInt32Value = new global::System.Data.DataColumn("UInt32Value", typeof(uint), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt32Value);
+                this.columnUInt64Value = new global::System.Data.DataColumn("UInt64Value", typeof(ulong), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt64Value);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1098,6 +1210,12 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnDataTable1Id;
             
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnBooleanValue;
+            
+            private global::System.Data.DataColumn columnObjectValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable2DataTable() {
@@ -1149,6 +1267,30 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn BooleanValueColumn {
+                get {
+                    return this.columnBooleanValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ObjectValueColumn {
+                get {
+                    return this.columnObjectValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1184,11 +1326,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable2Row AddDataTable2Row(int DataTable1Id) {
+            public DataTable2Row AddDataTable2Row(int DataTable1Id, string Name, bool BooleanValue, object ObjectValue) {
                 DataTable2Row rowDataTable2Row = ((DataTable2Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        DataTable1Id};
+                        DataTable1Id,
+                        Name,
+                        BooleanValue,
+                        ObjectValue};
                 rowDataTable2Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable2Row);
                 return rowDataTable2Row;
@@ -1220,6 +1365,9 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnDataTable1Id = base.Columns["DataTable1Id"];
+                this.columnName = base.Columns["Name"];
+                this.columnBooleanValue = base.Columns["BooleanValue"];
+                this.columnObjectValue = base.Columns["ObjectValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1229,6 +1377,12 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnId);
                 this.columnDataTable1Id = new global::System.Data.DataColumn("DataTable1Id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDataTable1Id);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnBooleanValue = new global::System.Data.DataColumn("BooleanValue", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBooleanValue);
+                this.columnObjectValue = new global::System.Data.DataColumn("ObjectValue", typeof(object), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnObjectValue);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1374,6 +1528,12 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnDataTable1Id;
             
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnCharValue;
+            
+            private global::System.Data.DataColumn columnGuidValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable3DataTable() {
@@ -1425,6 +1585,30 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CharValueColumn {
+                get {
+                    return this.columnCharValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn GuidValueColumn {
+                get {
+                    return this.columnGuidValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1460,11 +1644,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable3Row AddDataTable3Row(DataTable1Row parentDataTable1RowByDataTable1_DataTable3) {
+            public DataTable3Row AddDataTable3Row(DataTable1Row parentDataTable1RowByDataTable1_DataTable3, string Name, char CharValue, System.Guid GuidValue) {
                 DataTable3Row rowDataTable3Row = ((DataTable3Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null};
+                        null,
+                        Name,
+                        CharValue,
+                        GuidValue};
                 if ((parentDataTable1RowByDataTable1_DataTable3 != null)) {
                     columnValuesArray[1] = parentDataTable1RowByDataTable1_DataTable3[0];
                 }
@@ -1499,6 +1686,9 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnDataTable1Id = base.Columns["DataTable1Id"];
+                this.columnName = base.Columns["Name"];
+                this.columnCharValue = base.Columns["CharValue"];
+                this.columnGuidValue = base.Columns["GuidValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1508,6 +1698,12 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnId);
                 this.columnDataTable1Id = new global::System.Data.DataColumn("DataTable1Id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDataTable1Id);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnCharValue = new global::System.Data.DataColumn("CharValue", typeof(char), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCharValue);
+                this.columnGuidValue = new global::System.Data.DataColumn("GuidValue", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGuidValue);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1653,6 +1849,16 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnDataTable1Id;
             
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnByteValue;
+            
+            private global::System.Data.DataColumn columnUInt16Value;
+            
+            private global::System.Data.DataColumn columnUInt32Value;
+            
+            private global::System.Data.DataColumn columnUInt64Value;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable4DataTable() {
@@ -1704,6 +1910,46 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ByteValueColumn {
+                get {
+                    return this.columnByteValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt16ValueColumn {
+                get {
+                    return this.columnUInt16Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt32ValueColumn {
+                get {
+                    return this.columnUInt32Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UInt64ValueColumn {
+                get {
+                    return this.columnUInt64Value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1739,11 +1985,16 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable4Row AddDataTable4Row(DataTable1Row parentDataTable1RowByFK_DataTable1_DataTable4) {
+            public DataTable4Row AddDataTable4Row(DataTable1Row parentDataTable1RowByFK_DataTable1_DataTable4, string Name, byte ByteValue, ushort UInt16Value, uint UInt32Value, ulong UInt64Value) {
                 DataTable4Row rowDataTable4Row = ((DataTable4Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null};
+                        null,
+                        Name,
+                        ByteValue,
+                        UInt16Value,
+                        UInt32Value,
+                        UInt64Value};
                 if ((parentDataTable1RowByFK_DataTable1_DataTable4 != null)) {
                     columnValuesArray[1] = parentDataTable1RowByFK_DataTable1_DataTable4[0];
                 }
@@ -1778,6 +2029,11 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnDataTable1Id = base.Columns["DataTable1Id"];
+                this.columnName = base.Columns["Name"];
+                this.columnByteValue = base.Columns["ByteValue"];
+                this.columnUInt16Value = base.Columns["UInt16Value"];
+                this.columnUInt32Value = base.Columns["UInt32Value"];
+                this.columnUInt64Value = base.Columns["UInt64Value"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1787,6 +2043,16 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnId);
                 this.columnDataTable1Id = new global::System.Data.DataColumn("DataTable1Id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDataTable1Id);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnByteValue = new global::System.Data.DataColumn("ByteValue", typeof(byte), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnByteValue);
+                this.columnUInt16Value = new global::System.Data.DataColumn("UInt16Value", typeof(ushort), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt16Value);
+                this.columnUInt32Value = new global::System.Data.DataColumn("UInt32Value", typeof(uint), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt32Value);
+                this.columnUInt64Value = new global::System.Data.DataColumn("UInt64Value", typeof(ulong), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUInt64Value);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1936,6 +2202,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             private global::System.Data.DataColumn columnDataTable4Id;
             
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnDecimalValue;
+            
+            private global::System.Data.DataColumn columnDoubleValue;
+            
+            private global::System.Data.DataColumn columnSingleValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable5DataTable() {
@@ -2003,6 +2277,38 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DecimalValueColumn {
+                get {
+                    return this.columnDecimalValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DoubleValueColumn {
+                get {
+                    return this.columnDoubleValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SingleValueColumn {
+                get {
+                    return this.columnSingleValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2038,13 +2344,17 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable5Row AddDataTable5Row(System.Guid Key, DataTable2Row parentDataTable2RowByFK_DataTable2_DataTable5, DataTable3Row parentDataTable3RowByFK_DataTable3_DataTable5, DataTable4Row parentDataTable4RowByFK_DataTable4_DataTable5) {
+            public DataTable5Row AddDataTable5Row(System.Guid Key, DataTable2Row parentDataTable2RowByFK_DataTable2_DataTable5, DataTable3Row parentDataTable3RowByFK_DataTable3_DataTable5, DataTable4Row parentDataTable4RowByFK_DataTable4_DataTable5, string Name, decimal DecimalValue, double DoubleValue, float SingleValue) {
                 DataTable5Row rowDataTable5Row = ((DataTable5Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Key,
                         null,
                         null,
-                        null};
+                        null,
+                        Name,
+                        DecimalValue,
+                        DoubleValue,
+                        SingleValue};
                 if ((parentDataTable2RowByFK_DataTable2_DataTable5 != null)) {
                     columnValuesArray[1] = parentDataTable2RowByFK_DataTable2_DataTable5[0];
                 }
@@ -2087,6 +2397,10 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 this.columnDataTable2Id = base.Columns["DataTable2Id"];
                 this.columnDataTable3Id = base.Columns["DataTable3Id"];
                 this.columnDataTable4Id = base.Columns["DataTable4Id"];
+                this.columnName = base.Columns["Name"];
+                this.columnDecimalValue = base.Columns["DecimalValue"];
+                this.columnDoubleValue = base.Columns["DoubleValue"];
+                this.columnSingleValue = base.Columns["SingleValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2100,6 +2414,14 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
                 base.Columns.Add(this.columnDataTable3Id);
                 this.columnDataTable4Id = new global::System.Data.DataColumn("DataTable4Id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDataTable4Id);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDecimalValue = new global::System.Data.DataColumn("DecimalValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDecimalValue);
+                this.columnDoubleValue = new global::System.Data.DataColumn("DoubleValue", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDoubleValue);
+                this.columnSingleValue = new global::System.Data.DataColumn("SingleValue", typeof(float), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSingleValue);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnKey}, true));
                 this.columnKey.AllowDBNull = false;
@@ -2273,6 +2595,70 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable6.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'DataTable6\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable6.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime DateTimeValue {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableDataTable6.DateTimeValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DateTimeValue\' in table \'DataTable6\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable6.DateTimeValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTimeOffset DateTimeOffsetValue {
+                get {
+                    try {
+                        return ((global::System.DateTimeOffset)(this[this.tableDataTable6.DateTimeOffsetValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DateTimeOffsetValue\' in table \'DataTable6\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable6.DateTimeOffsetValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.TimeSpan TimeSpanValue {
+                get {
+                    try {
+                        return ((global::System.TimeSpan)(this[this.tableDataTable6.TimeSpanValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TimeSpanValue\' in table \'DataTable6\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable6.TimeSpanValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable6Row DataTable6RowParent {
                 get {
                     return ((DataTable6Row)(this.GetParentRow(this.Table.ParentRelations["DataTable6_DataTable6"])));
@@ -2292,6 +2678,54 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetParentIdNull() {
                 this[this.tableDataTable6.ParentIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableDataTable6.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableDataTable6.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDateTimeValueNull() {
+                return this.IsNull(this.tableDataTable6.DateTimeValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDateTimeValueNull() {
+                this[this.tableDataTable6.DateTimeValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDateTimeOffsetValueNull() {
+                return this.IsNull(this.tableDataTable6.DateTimeOffsetValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDateTimeOffsetValueNull() {
+                this[this.tableDataTable6.DateTimeOffsetValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTimeSpanValueNull() {
+                return this.IsNull(this.tableDataTable6.TimeSpanValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTimeSpanValueNull() {
+                this[this.tableDataTable6.TimeSpanValueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2349,6 +2783,70 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public sbyte SByteValue {
+                get {
+                    try {
+                        return ((sbyte)(this[this.tableDataTable1.SByteValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SByteValue\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.SByteValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ushort UInt16Value {
+                get {
+                    try {
+                        return ((ushort)(this[this.tableDataTable1.UInt16ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt16Value\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.UInt16ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public uint UInt32Value {
+                get {
+                    try {
+                        return ((uint)(this[this.tableDataTable1.UInt32ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt32Value\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.UInt32ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ulong UInt64Value {
+                get {
+                    try {
+                        return ((ulong)(this[this.tableDataTable1.UInt64ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt64Value\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.UInt64ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsNameNull() {
                 return this.IsNull(this.tableDataTable1.NameColumn);
             }
@@ -2357,6 +2855,54 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetNameNull() {
                 this[this.tableDataTable1.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSByteValueNull() {
+                return this.IsNull(this.tableDataTable1.SByteValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSByteValueNull() {
+                this[this.tableDataTable1.SByteValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt16ValueNull() {
+                return this.IsNull(this.tableDataTable1.UInt16ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt16ValueNull() {
+                this[this.tableDataTable1.UInt16ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt32ValueNull() {
+                return this.IsNull(this.tableDataTable1.UInt32ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt32ValueNull() {
+                this[this.tableDataTable1.UInt32ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt64ValueNull() {
+                return this.IsNull(this.tableDataTable1.UInt64ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt64ValueNull() {
+                this[this.tableDataTable1.UInt64ValueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2425,6 +2971,54 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'DataTable2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool BooleanValue {
+                get {
+                    try {
+                        return ((bool)(this[this.tableDataTable2.BooleanValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BooleanValue\' in table \'DataTable2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.BooleanValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public object ObjectValue {
+                get {
+                    try {
+                        return ((object)(this[this.tableDataTable2.ObjectValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ObjectValue\' in table \'DataTable2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.ObjectValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsDataTable1IdNull() {
                 return this.IsNull(this.tableDataTable2.DataTable1IdColumn);
             }
@@ -2433,6 +3027,42 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDataTable1IdNull() {
                 this[this.tableDataTable2.DataTable1IdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableDataTable2.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableDataTable2.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsBooleanValueNull() {
+                return this.IsNull(this.tableDataTable2.BooleanValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetBooleanValueNull() {
+                this[this.tableDataTable2.BooleanValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsObjectValueNull() {
+                return this.IsNull(this.tableDataTable2.ObjectValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetObjectValueNull() {
+                this[this.tableDataTable2.ObjectValueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2490,6 +3120,54 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable3.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'DataTable3\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable3.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public char CharValue {
+                get {
+                    try {
+                        return ((char)(this[this.tableDataTable3.CharValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CharValue\' in table \'DataTable3\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable3.CharValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.Guid GuidValue {
+                get {
+                    try {
+                        return ((global::System.Guid)(this[this.tableDataTable3.GuidValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GuidValue\' in table \'DataTable3\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable3.GuidValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable1Row DataTable1Row {
                 get {
                     return ((DataTable1Row)(this.GetParentRow(this.Table.ParentRelations["DataTable1_DataTable3"])));
@@ -2509,6 +3187,42 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDataTable1IdNull() {
                 this[this.tableDataTable3.DataTable1IdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableDataTable3.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableDataTable3.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCharValueNull() {
+                return this.IsNull(this.tableDataTable3.CharValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCharValueNull() {
+                this[this.tableDataTable3.CharValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsGuidValueNull() {
+                return this.IsNull(this.tableDataTable3.GuidValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetGuidValueNull() {
+                this[this.tableDataTable3.GuidValueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2566,6 +3280,86 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable4.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'DataTable4\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable4.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public byte ByteValue {
+                get {
+                    try {
+                        return ((byte)(this[this.tableDataTable4.ByteValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ByteValue\' in table \'DataTable4\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable4.ByteValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ushort UInt16Value {
+                get {
+                    try {
+                        return ((ushort)(this[this.tableDataTable4.UInt16ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt16Value\' in table \'DataTable4\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable4.UInt16ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public uint UInt32Value {
+                get {
+                    try {
+                        return ((uint)(this[this.tableDataTable4.UInt32ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt32Value\' in table \'DataTable4\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable4.UInt32ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ulong UInt64Value {
+                get {
+                    try {
+                        return ((ulong)(this[this.tableDataTable4.UInt64ValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UInt64Value\' in table \'DataTable4\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable4.UInt64ValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DataTable1Row DataTable1Row {
                 get {
                     return ((DataTable1Row)(this.GetParentRow(this.Table.ParentRelations["FK_DataTable1_DataTable4"])));
@@ -2585,6 +3379,66 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDataTable1IdNull() {
                 this[this.tableDataTable4.DataTable1IdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableDataTable4.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableDataTable4.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsByteValueNull() {
+                return this.IsNull(this.tableDataTable4.ByteValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetByteValueNull() {
+                this[this.tableDataTable4.ByteValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt16ValueNull() {
+                return this.IsNull(this.tableDataTable4.UInt16ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt16ValueNull() {
+                this[this.tableDataTable4.UInt16ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt32ValueNull() {
+                return this.IsNull(this.tableDataTable4.UInt32ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt32ValueNull() {
+                this[this.tableDataTable4.UInt32ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUInt64ValueNull() {
+                return this.IsNull(this.tableDataTable4.UInt64ValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUInt64ValueNull() {
+                this[this.tableDataTable4.UInt64ValueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2674,12 +3528,76 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable2Row DataTable2Row {
+            public string Name {
                 get {
-                    return ((DataTable2Row)(this.GetParentRow(this.Table.ParentRelations["FK_DataTable2_DataTable5"])));
+                    try {
+                        return ((string)(this[this.tableDataTable5.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'DataTable5\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_DataTable2_DataTable5"]);
+                    this[this.tableDataTable5.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal DecimalValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDataTable5.DecimalValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DecimalValue\' in table \'DataTable5\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable5.DecimalValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public double DoubleValue {
+                get {
+                    try {
+                        return ((double)(this[this.tableDataTable5.DoubleValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DoubleValue\' in table \'DataTable5\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable5.DoubleValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public float SingleValue {
+                get {
+                    try {
+                        return ((float)(this[this.tableDataTable5.SingleValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SingleValue\' in table \'DataTable5\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable5.SingleValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DataTable4Row DataTable4Row {
+                get {
+                    return ((DataTable4Row)(this.GetParentRow(this.Table.ParentRelations["FK_DataTable4_DataTable5"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DataTable4_DataTable5"]);
                 }
             }
             
@@ -2696,12 +3614,12 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DataTable4Row DataTable4Row {
+            public DataTable2Row DataTable2Row {
                 get {
-                    return ((DataTable4Row)(this.GetParentRow(this.Table.ParentRelations["FK_DataTable4_DataTable5"])));
+                    return ((DataTable2Row)(this.GetParentRow(this.Table.ParentRelations["FK_DataTable2_DataTable5"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_DataTable4_DataTable5"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DataTable2_DataTable5"]);
                 }
             }
             
@@ -2739,6 +3657,54 @@ namespace Json.Net.DataSetConverters.Tests.TypedDataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDataTable4IdNull() {
                 this[this.tableDataTable5.DataTable4IdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableDataTable5.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableDataTable5.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDecimalValueNull() {
+                return this.IsNull(this.tableDataTable5.DecimalValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDecimalValueNull() {
+                this[this.tableDataTable5.DecimalValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDoubleValueNull() {
+                return this.IsNull(this.tableDataTable5.DoubleValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDoubleValueNull() {
+                this[this.tableDataTable5.DoubleValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSingleValueNull() {
+                return this.IsNull(this.tableDataTable5.SingleValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSingleValueNull() {
+                this[this.tableDataTable5.SingleValueColumn] = global::System.Convert.DBNull;
             }
         }
         

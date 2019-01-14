@@ -46,7 +46,7 @@ type DataSetConverter() =
             let dataTable = dataSet.Tables.[reader.Value :?> string]
             reader.ReadAndAssert()
             let exists = dataTable <> null
-            let dataTable = dataTableConverter.ReadJson(reader, typeof<DataTable>, dataTable, serializer) :?> DataTable
+            let dataTable = dataTableConverter.ReadJson(reader, (if dataTable <> null then dataTable.GetType() else typeof<DataTable>), dataTable, serializer) :?> DataTable
             if not exists then dataSet.Tables.Add(dataTable)
             reader.ReadAndAssert()
             
