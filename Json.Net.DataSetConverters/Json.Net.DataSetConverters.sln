@@ -7,7 +7,12 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Json.Net.DataSetConverters"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Json.Net.DataSetConverters.Tests", "Json.Net.DataSetConverters.Tests\Json.Net.DataSetConverters.Tests.fsproj", "{85FC4D12-349B-4A4D-8264-0E6FC2AC2785}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.Net.DataSetConverters.Tests.TypedDataSets", "Json.Net.DataSetConverters.Tests.TypedDataSets\Json.Net.DataSetConverters.Tests.TypedDataSets.csproj", "{D07F87B9-004E-4C65-BEF3-94CA55DD3984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json.Net.DataSetConverters.Tests.TypedDataSets", "Json.Net.DataSetConverters.Tests.TypedDataSets\Json.Net.DataSetConverters.Tests.TypedDataSets.csproj", "{D07F87B9-004E-4C65-BEF3-94CA55DD3984}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{392C2975-94C8-4194-9578-F49CEFCF050D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

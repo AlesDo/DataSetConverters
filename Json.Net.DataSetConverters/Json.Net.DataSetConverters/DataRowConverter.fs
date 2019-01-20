@@ -1,4 +1,4 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
@@ -16,10 +16,6 @@ type DataRowConverter(dataTable: DataTable) =
     static let OriginalRow = "OriginalRow"
     [<Literal>]
     static let RowState = "RowState"
-    [<Literal>]
-    static let IsPrimaryKey = "IsPrimaryKey"
-    [<Literal>]
-    static let ExtendedProperties = "ExtendedProperties"
 
     static let readColumnValues(reader: JsonReader, serializer: JsonSerializer, dataRow: DataRow, dataTable: DataTable) = 
         for dataColumn in dataTable.Columns do

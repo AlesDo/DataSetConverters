@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="PropertyCollectionExtensions.fs" />
     <Compile Include="DataSetExtensions.fs" />
     <Compile Include="JsonSerializationExtensions.fs" />
     <Compile Include="PropertyCollectionConverter.fs" />

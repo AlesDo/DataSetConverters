@@ -3,7 +3,7 @@ open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
 open Newtonsoft.Json.Serialization
-open ColumnSerialization
+open System
 
 type ForeignKeyConstraintConverter() =
     inherit JsonConverter()
@@ -24,24 +24,18 @@ type ForeignKeyConstraintConverter() =
     override this.CanConvert(objectType) =
         typeof<ForeignKeyConstraint>.IsAssignableFrom(objectType)
 
-    override this.ReadJson(reader, _, existingValue, serializer) =
+    override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else
             let foreignKeyConstraint = existingValue :?> ForeignKeyConstraint
             reader.ValidateJsonToken(JsonToken.StartObject, ObjectName)
-            if isNull(existingValue) then
-               reader.ReadPropertyFromOutput<AcceptRejectRule>(serializer, AcceptRejectRule, ObjectName) |> ignore
-               reader.ReadPropertyFromOutput<string>(serializer, ConstraintName, ObjectName) |> ignore
-               reader.ReadPropertyFromOutput<Rule>(serializer, DeleteRule, ObjectName) |> ignore
-               reader.ReadPropertyFromOutput<Rule>(serializer, UpdateRule, ObjectName) |> ignore
-               reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, new PropertyCollection(), new PropertyCollectionConverter()) |> ignore
-            else
-               foreignKeyConstraint.AcceptRejectRule <- reader.ReadPropertyFromOutput<AcceptRejectRule>(serializer, AcceptRejectRule, ObjectName)
-               foreignKeyConstraint.ConstraintName <- reader.ReadPropertyFromOutput<string>(serializer, ConstraintName, ObjectName)
-               foreignKeyConstraint.DeleteRule <- reader.ReadPropertyFromOutput<Rule>(serializer, DeleteRule, ObjectName)
-               foreignKeyConstraint.UpdateRule <- reader.ReadPropertyFromOutput<Rule>(serializer, UpdateRule, ObjectName)
-               reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, foreignKeyConstraint.ExtendedProperties, new PropertyCollectionConverter()) |> ignore
+            foreignKeyConstraint.AcceptRejectRule <- reader.ReadPropertyFromOutput<AcceptRejectRule>(serializer, AcceptRejectRule, ObjectName)
+            foreignKeyConstraint.ConstraintName <- reader.ReadPropertyFromOutput<string>(serializer, ConstraintName, ObjectName)
+            foreignKeyConstraint.DeleteRule <- reader.ReadPropertyFromOutput<Rule>(serializer, DeleteRule, ObjectName)
+            foreignKeyConstraint.UpdateRule <- reader.ReadPropertyFromOutput<Rule>(serializer, UpdateRule, ObjectName)
+            reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, foreignKeyConstraint.ExtendedProperties, new PropertyCollectionConverter()) |> ignore
             reader.ReadAndAssert()
             reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
             foreignKeyConstraint :> obj

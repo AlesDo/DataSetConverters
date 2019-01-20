@@ -1,9 +1,10 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
 open Newtonsoft.Json.Serialization
 open ColumnSerialization
+open System
 
 type UniqueConstraintConverter(dataTable: DataTable) =
     inherit JsonConverter()
@@ -23,7 +24,8 @@ type UniqueConstraintConverter(dataTable: DataTable) =
     override this.CanConvert(objectType) =
         typeof<UniqueConstraint>.IsAssignableFrom(objectType)
 
-    override this.ReadJson(reader, _, _, serializer) =
+    override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else
@@ -31,7 +33,10 @@ type UniqueConstraintConverter(dataTable: DataTable) =
             let constraintName = reader.ReadPropertyFromOutput<string>(serializer, ConstraintName, ObjectName)
             let isPrimaryKey = reader.ReadPropertyFromOutput<bool>(serializer, IsPrimaryKey, ObjectName)
 
-            let uniqueConstraint = UniqueConstraint(constraintName, List.toArray(columns), isPrimaryKey)
+            let uniqueConstraint = 
+                match existingValue with
+                    | null -> new UniqueConstraint(constraintName, List.toArray(columns), isPrimaryKey)
+                    | _ -> existingValue :?> UniqueConstraint
             reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, uniqueConstraint.ExtendedProperties, PropertyCollectionConverter()) |> ignore
             reader.ReadAndAssert();
             reader.ValidateJsonToken(JsonToken.EndObject, ObjectName);
