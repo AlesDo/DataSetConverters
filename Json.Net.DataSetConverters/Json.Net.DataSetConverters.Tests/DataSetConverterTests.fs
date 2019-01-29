@@ -197,3 +197,15 @@ let ``DataSet serialize deserialize empty typed DataSet`` () =
    let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
 
    Assert.NotNull(deserializedDataSet)
+
+[<Fact>]
+let ``DataSet serialize deserialize typed DataSet with Data`` () =
+   let typedDataSet = new TestDataSet()
+   let dataTable1Row1 = typedDataSet.DataTable1.AddDataTable1Row("DataTable1Row1", SByte.MaxValue, UInt16.MaxValue, UInt32.MaxValue, UInt64.MaxValue)
+   typedDataSet.AcceptChanges()
+
+   let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
+   let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
+
+   Assert.NotNull(deserializedDataSet)
+   Assert.Equal<DataRow>(dataTable1Row1, deserializedDataSet.DataTable1.Rows.[0], dataRowComparer<DataRow>);

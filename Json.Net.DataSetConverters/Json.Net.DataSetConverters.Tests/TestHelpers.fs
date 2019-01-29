@@ -28,13 +28,19 @@ let equalObjects (o1: obj, o2: obj) = if (isNull o1) || (isNull o2) then o1 = o2
 let equalSequences (a1: seq<obj>, a2: seq<obj>) = if (isNull a1) || (isNull a2) then a1 = a2 else (Seq.compareWith(fun e1 e2 -> if equalObjects(e1, e2) then 0 else 1) a1 a2) = 0
 
 let objectEqualityComparer = {
-      new IEqualityComparer<obj> with
-      member this.Equals(x, y) = equalObjects(x , y)
-      member this.GetHashCode(o) = o.GetHashCode()
-   }
+    new IEqualityComparer<obj> with
+    member this.Equals(x, y) = equalObjects(x , y)
+    member this.GetHashCode(o) = o.GetHashCode()
+}
 
 let arrayEqualityComparer = {
-      new IEqualityComparer<obj> with
-      member this.Equals(x, y) = if (isNull x) || (x = (DBNull.Value :> obj)) || (isNull y) || (y = (DBNull.Value :> obj)) then x = y else equalSequences((x :?> Array).Cast<obj>(), (y :?> Array).Cast<obj>())
-      member this.GetHashCode(o) = o.GetHashCode()
-   }
+    new IEqualityComparer<obj> with
+    member this.Equals(x, y) = if (isNull x) || (x = (DBNull.Value :> obj)) || (isNull y) || (y = (DBNull.Value :> obj)) then x = y else equalSequences((x :?> Array).Cast<obj>(), (y :?> Array).Cast<obj>())
+    member this.GetHashCode(o) = o.GetHashCode()
+}
+
+let dataRowComparer<'T when 'T :> DataRow and 'T : equality and 'T : null> = {
+    new IEqualityComparer<'T> with
+    member this.Equals(row1, row2) = if (isNull row1) || (isNull row2) then row1 = row2 else (row1.RowState = row2.RowState) && equalSequences(row1.ItemArray, row2.ItemArray)
+    member this.GetHashCode(row) = row.GetHashCode()
+}
