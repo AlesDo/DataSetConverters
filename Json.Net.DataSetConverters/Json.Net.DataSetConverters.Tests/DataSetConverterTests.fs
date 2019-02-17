@@ -198,10 +198,10 @@ let ``DataSet serialize deserialize empty typed DataSet`` () =
 
    Assert.NotNull(deserializedDataSet)
 
-[<Fact>]
-let ``DataSet serialize deserialize typed DataSet with Data`` () =
+[<Property>]
+let ``DataSet serialize deserialize typed DataSet with Data`` ((sByteValue: sbyte, uInt16Value: uint16, uInt32Value: uint32, uInt64Value: uint64)) =
    let typedDataSet = new TestDataSet()
-   let dataTable1Row1 = typedDataSet.DataTable1.AddDataTable1Row("DataTable1Row1", SByte.MaxValue, UInt16.MaxValue, UInt32.MaxValue, UInt64.MaxValue)
+   let dataTable1Row1 = typedDataSet.DataTable1.AddDataTable1Row("DataTable1Row1", sByteValue, uInt16Value, uInt32Value, uInt64Value)
    typedDataSet.AcceptChanges()
 
    let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
@@ -209,3 +209,31 @@ let ``DataSet serialize deserialize typed DataSet with Data`` () =
 
    Assert.NotNull(deserializedDataSet)
    Assert.Equal<DataRow>(dataTable1Row1, deserializedDataSet.DataTable1.Rows.[0], dataRowComparer<DataRow>);
+
+type DataTable1Values = { sByteValue: sbyte; uInt16Value: uint16; uInt32Value: uint32; uInt64Value: uint64 }
+
+[<Property>]
+let ``DataSet serialize deserialize typed DataSet with Data One Table without changes`` (rowValues: DataTable1Values[]) =
+   let typedDataSet = new TestDataSet()
+   let dataRows = rowValues |> Seq.map(fun rowValues -> typedDataSet.DataTable1.AddDataTable1Row("DataTable1Row1", rowValues.sByteValue, rowValues.uInt16Value, rowValues.uInt32Value, rowValues.uInt64Value)) |> Seq.toArray
+   typedDataSet.AcceptChanges()
+
+   let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
+   let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
+
+   Assert.NotNull(deserializedDataSet)
+   Assert.Equal(dataRows, deserializedDataSet.DataTable1.Rows.OfType<TestDataSet.DataTable1Row>(), dataRowComparer<TestDataSet.DataTable1Row>);
+
+[<Property>]
+let ``DataSet serialize deserialize typed DataSet with Data One Table with changes`` (rowValues: DataTable1Values[]) =
+   let typedDataSet = new TestDataSet()
+   let dataRows = rowValues |> Seq.map(fun rowValues -> typedDataSet.DataTable1.AddDataTable1Row("DataTable1Row1", rowValues.sByteValue, rowValues.uInt16Value, rowValues.uInt32Value, rowValues.uInt64Value)) |> Seq.toArray
+   typedDataSet.AcceptChanges()
+
+   dataRows |> Seq.iteri(fun index row -> if index % 2 = 0 then row.SByteValue <- row.SByteValue + 1y)
+
+   let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
+   let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
+
+   Assert.NotNull(deserializedDataSet)
+   Assert.Equal(dataRows, deserializedDataSet.DataTable1.Rows.OfType<TestDataSet.DataTable1Row>(), dataRowComparer<TestDataSet.DataTable1Row>);

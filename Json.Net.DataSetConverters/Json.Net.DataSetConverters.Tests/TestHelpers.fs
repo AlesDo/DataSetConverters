@@ -6,6 +6,7 @@ open System.Data
 open System
 open System.Collections.Generic
 open System.Linq
+open Json.Net.DataSetConverters.Tests.TypedDataSets
 
 let filter (testString: string) =
     testString.Length > 10
