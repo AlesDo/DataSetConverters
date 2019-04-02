@@ -236,4 +236,4 @@ let ``DataSet serialize deserialize typed DataSet with Data One Table with chang
    let deserializedDataSet = JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter())
 
    Assert.NotNull(deserializedDataSet)
-   Assert.Equal(dataRows, deserializedDataSet.DataTable1.Rows.OfType<TestDataSet.DataTable1Row>(), dataRowComparer<TestDataSet.DataTable1Row>);
+   Assert.Equal(typedDataSet.DataTable1, deserializedDataSet.DataTable1, dataTableComparer);
