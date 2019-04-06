@@ -40,6 +40,14 @@ let arrayEqualityComparer = {
     member this.GetHashCode(o) = o.GetHashCode()
 }
 
+let dictionaryEntryComparer = {
+   new IEqualityComparer<DictionaryEntry> with
+   member this.Equals(dictionaryEntry1, distionaryEntry2) = equalObjects(dictionaryEntry1.Key, distionaryEntry2.Key) && equalObjects(dictionaryEntry1.Value, distionaryEntry2.Value)
+   member this.GetHashCode(row) = row.GetHashCode()
+}
+
+let compareDictionaryEntries = Seq.compareWith(fun dictionaryEntry1 dictionaryEntry2 -> if dictionaryEntryComparer.Equals(dictionaryEntry1, dictionaryEntry2) then 0 else 1)
+
 let dataRowComparer<'T when 'T :> DataRow and 'T : equality and 'T : null> = {
     new IEqualityComparer<'T> with
     member this.Equals(row1, row2) = if (isNull row1) || (isNull row2) then row1 = row2 else (row1.RowState = row2.RowState) && equalSequences(row1.ItemArray, row2.ItemArray)
@@ -50,7 +58,7 @@ let compareRows<'T when 'T :> DataRow and 'T : equality and 'T : null> = Seq.com
 
 let hashTableComparer<'T when 'T :> Hashtable and 'T : equality and 'T : null> = {
     new IEqualityComparer<'T> with
-    member this.Equals(hashtable1, hashtable2) = equalSequences((Seq.cast hashtable1.Keys), (Seq.cast hashtable2.Keys))
+    member this.Equals(hashtable1, hashtable2) = (compareDictionaryEntries (Seq.cast hashtable1) (Seq.cast hashtable2) = 0)
     member this.GetHashCode(hashtable) = hashtable.GetHashCode()
 }
 
@@ -62,7 +70,7 @@ let dataColumnComparer = {
         column1.ColumnName = column2.ColumnName && column1.DataType = column2.DataType && column1.DateTimeMode = column2.DateTimeMode &&
         column1.DefaultValue = column2.DefaultValue && column1.Expression = column2.Expression && column1.MaxLength = column2.MaxLength &&
         column1.Namespace = column2.Namespace && column1.Ordinal = column2.Ordinal && column1.Prefix = column2.Prefix && column1.ReadOnly = column2.ReadOnly &&
-        column1.Unique = column2.Unique // add extended properties
+        column1.Unique = column2.Unique && hashTableComparer.Equals(column1.ExtendedProperties, column2.ExtendedProperties)
     member this.GetHashCode(column) = column.GetHashCode()
 }
 
@@ -76,17 +84,31 @@ let dataRelationComparer = {
         dataRelation1.Nested = dataRelation2.Nested &&
         (compareColumns (Seq.cast dataRelation1.ParentColumns) (Seq.cast dataRelation2.ParentColumns) = 0) &&
         dataRelation1.ParentTable.TableName = dataRelation2.ParentTable.TableName &&
-        dataRelation1.RelationName = dataRelation2.RelationName
+        dataRelation1.RelationName = dataRelation2.RelationName && hashTableComparer.Equals(dataRelation1.ExtendedProperties, dataRelation2.ExtendedProperties)
     member this.GetHashCode(dataRelation) = dataRelation.GetHashCode()
 }
 
+let compareRelations<'T when 'T :> DataRelation and 'T : equality and 'T : null> = Seq.compareWith(fun dataRelation1 dataRelation2 -> if dataRelationComparer.Equals(dataRelation1, dataRelation2) then 0 else 1)
+
 let dataTableComparer<'T when 'T :> DataTable and 'T : equality and 'T : null> = {
     new IEqualityComparer<'T> with
-    member this.Equals(table1, table2) =
-        (compareRows (Seq.cast table1.Rows)  (Seq.cast table2.Rows) = 0) && (compareColumns (Seq.cast table1.Columns) (Seq.cast table2.Columns) = 0) &&
-        table1.TableName = table2.TableName && table1.CaseSensitive = table2.CaseSensitive && table1.DisplayExpression = table2.DisplayExpression &&
-        table1.HasErrors = table2.HasErrors && table1.IsInitialized = table2.IsInitialized && table1.Locale = table2.Locale && table1.MinimumCapacity = table2.MinimumCapacity &&
-        table1.Namespace = table2.Namespace && (compareColumns (Seq.cast table1.PrimaryKey) (Seq.cast table2.PrimaryKey) = 0) && table1.Prefix = table2.Prefix &&
-        table1.RemotingFormat = table2.RemotingFormat
-    member this.GetHashCode(row) = row.GetHashCode()
+    member this.Equals(dataTable1, dataTable2) =
+        (compareRows (Seq.cast dataTable1.Rows)  (Seq.cast dataTable2.Rows) = 0) && (compareColumns (Seq.cast dataTable1.Columns) (Seq.cast dataTable2.Columns) = 0) &&
+        dataTable1.TableName = dataTable2.TableName && dataTable1.CaseSensitive = dataTable2.CaseSensitive && dataTable1.DisplayExpression = dataTable2.DisplayExpression &&
+        dataTable1.HasErrors = dataTable2.HasErrors && dataTable1.IsInitialized = dataTable2.IsInitialized && dataTable1.Locale = dataTable2.Locale && dataTable1.MinimumCapacity = dataTable2.MinimumCapacity &&
+        dataTable1.Namespace = dataTable2.Namespace && (compareColumns (Seq.cast dataTable1.PrimaryKey) (Seq.cast dataTable2.PrimaryKey) = 0) && dataTable1.Prefix = dataTable2.Prefix &&
+        dataTable1.RemotingFormat = dataTable2.RemotingFormat && hashTableComparer.Equals(dataTable1.ExtendedProperties, dataTable2.ExtendedProperties)
+    member this.GetHashCode(dataTable) = dataTable.GetHashCode()
+}
+
+let compareTables<'T when 'T :> DataTable and 'T : equality and 'T : null> = Seq.compareWith(fun dataTable1 dataTable2 -> if dataRelationComparer.Equals(dataTable1, dataTable2) then 0 else 1)
+
+let dataSetComparer<'T when 'T :> DataSet and 'T : equality and 'T : null> = {
+   new IEqualityComparer<'T> with
+   member this.Equals(dataSet1, dataSet2) =
+        dataSet1.CaseSensitive = dataSet2.CaseSensitive && dataSet1.DataSetName = dataSet2.DataSetName && dataSet1.EnforceConstraints = dataSet2.EnforceConstraints &&
+        dataSet1.HasErrors = dataSet2.HasErrors && dataSet1.IsInitialized = dataSet2.IsInitialized && dataSet1.Locale = dataSet2.Locale && dataSet1.Namespace = dataSet2.Namespace &&
+        dataSet1.Prefix = dataSet2.Prefix && dataSet1.RemotingFormat = dataSet2.RemotingFormat && dataSet1.SchemaSerializationMode = dataSet2.SchemaSerializationMode &&
+        hashTableComparer.Equals(dataSet1.ExtendedProperties, dataSet2.ExtendedProperties)
+   member this.GetHashCode(row) = row.GetHashCode()
 }
