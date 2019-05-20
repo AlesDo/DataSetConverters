@@ -50,7 +50,7 @@ let compareDictionaryEntries = Seq.compareWith(fun dictionaryEntry1 dictionaryEn
 
 let dataRowComparer<'T when 'T :> DataRow and 'T : equality and 'T : null> = {
     new IEqualityComparer<'T> with
-    member this.Equals(row1, row2) = if (isNull row1) || (isNull row2) then row1 = row2 else (row1.RowState = row2.RowState) && equalSequences(row1.ItemArray, row2.ItemArray)
+    member this.Equals(row1, row2) = if (isNull row1) || (isNull row2) then row1 = row2 else (row1.RowState = row2.RowState) && ((row1.RowState = DataRowState.Deleted) || equalSequences(row1.ItemArray, row2.ItemArray))
     member this.GetHashCode(row) = row.GetHashCode()
 }
 
@@ -101,7 +101,7 @@ let dataTableComparer<'T when 'T :> DataTable and 'T : equality and 'T : null> =
     member this.GetHashCode(dataTable) = dataTable.GetHashCode()
 }
 
-let compareTables<'T when 'T :> DataTable and 'T : equality and 'T : null> = Seq.compareWith(fun dataTable1 dataTable2 -> if dataRelationComparer.Equals(dataTable1, dataTable2) then 0 else 1)
+let compareTables<'T when 'T :> DataTable and 'T : equality and 'T : null> = Seq.compareWith(fun dataTable1 dataTable2 -> if dataTableComparer.Equals(dataTable1, dataTable2) then 0 else 1)
 
 let dataSetComparer<'T when 'T :> DataSet and 'T : equality and 'T : null> = {
    new IEqualityComparer<'T> with
@@ -109,6 +109,7 @@ let dataSetComparer<'T when 'T :> DataSet and 'T : equality and 'T : null> = {
         dataSet1.CaseSensitive = dataSet2.CaseSensitive && dataSet1.DataSetName = dataSet2.DataSetName && dataSet1.EnforceConstraints = dataSet2.EnforceConstraints &&
         dataSet1.HasErrors = dataSet2.HasErrors && dataSet1.IsInitialized = dataSet2.IsInitialized && dataSet1.Locale = dataSet2.Locale && dataSet1.Namespace = dataSet2.Namespace &&
         dataSet1.Prefix = dataSet2.Prefix && dataSet1.RemotingFormat = dataSet2.RemotingFormat && dataSet1.SchemaSerializationMode = dataSet2.SchemaSerializationMode &&
-        hashTableComparer.Equals(dataSet1.ExtendedProperties, dataSet2.ExtendedProperties)
+        hashTableComparer.Equals(dataSet1.ExtendedProperties, dataSet2.ExtendedProperties) && (compareRelations (Seq.cast dataSet1.Relations) (Seq.cast dataSet2.Relations) = 0) &&
+        (compareTables (Seq.cast dataSet1.Tables) (Seq.cast dataSet2.Tables) = 0)
    member this.GetHashCode(row) = row.GetHashCode()
 }
