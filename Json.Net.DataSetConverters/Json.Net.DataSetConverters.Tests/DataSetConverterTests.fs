@@ -279,10 +279,19 @@ let ``DataSet serialize deserialize typed DataSet with data in one Table with ad
 let ``DataSet serialize deserialize typed dataset with multiple tables with relationships`` (table1RowValues: DataTable1Values[], table2RowValues: DataTable2Values[], table3RowValues: DataTable3Values[], table4RowValues: DataTable4Values[], table5RowValues: DataTable5Values[], table6RowValues: DataTable6Values[]) =
    let typedDataSet = new TestDataSet()
    table1RowValues |> Seq.map(fun table1RowValues -> typedDataSet.DataTable1.AddDataTable1Row(table1RowValues.name, table1RowValues.sByteValue, table1RowValues.uInt16Value, table1RowValues.uInt32Value, table1RowValues.uInt64Value)) |> ignore
-   if table1RowValues.Length > 0 then
-      table2RowValues |> Seq.map(fun table2RowValues -> typedDataSet.DataTable2.AddDataTable2Row(typedDataSet.DataTable1.Rows.[0].Field<int>("DataTable1Id"), table2RowValues.name, table2RowValues.booleanValue, table2RowValues.objectValue)) |> ignore
-   if table1RowValues.Length > 0 then
-      table3RowValues |> Seq.map(fun table3RowValues -> typedDataSet.DataTable3.AddDataTable3Row(typedDataSet.DataTable1.Rows.[0] :?> TestDataSet.DataTable1Row, table3RowValues.name, table3RowValues.charValue, table3RowValues.guidValue)) |> ignore
+   for table1Row in typedDataSet.DataTable1.Rows do
+      table2RowValues |> Seq.map(fun table2RowValues -> typedDataSet.DataTable2.AddDataTable2Row(table1Row.Field<int>("DataTable1Id"), table2RowValues.name, table2RowValues.booleanValue, table2RowValues.objectValue)) |> ignore
+   for table1Row in typedDataSet.DataTable1.Rows do
+      table3RowValues |> Seq.map(fun table3RowValues -> typedDataSet.DataTable3.AddDataTable3Row(table1Row :?> TestDataSet.DataTable1Row, table3RowValues.name, table3RowValues.charValue, table3RowValues.guidValue)) |> ignore
+   for table1Row in typedDataSet.DataTable1.Rows do
+      table4RowValues |> Seq.map(fun table4RowValues -> typedDataSet.DataTable4.AddDataTable4Row(table1Row :?> TestDataSet.DataTable1Row, table4RowValues.name, table4RowValues.byteValue, table4RowValues.uInt16Value, table4RowValues.uInt32Value, table4RowValues.uInt64Value)) |> ignore
+
+   for table2Row in typedDataSet.DataTable2.Rows do
+      for table3Row in typedDataSet.DataTable3.Rows do
+         for table4Row in typedDataSet.DataTable4.Rows do
+            table5RowValues |> Seq.map(fun table5RowValues -> typedDataSet.DataTable5.AddDataTable5Row(Guid.NewGuid(), table2Row :?> TestDataSet.DataTable2Row, table3Row :?> TestDataSet.DataTable3Row, table4Row  :?> TestDataSet.DataTable4Row, table5RowValues.name, table5RowValues.decimalValue, table5RowValues.doubleValue, table5RowValues.singleValue)) |> ignore
+   
+   table6RowValues |> Seq.map(fun table6RowValues -> typedDataSet.DataTable6.AddDataTable6Row(null, table6RowValues.name, table6RowValues.dateTimeValue, table6RowValues.datetimeOffsetValue, table6RowValues.timeSpanValue)) |> ignore
    typedDataSet.AcceptChanges()
 
    let jsonDataSet = JsonConvert.SerializeObject(typedDataSet, DataSetConverter())
