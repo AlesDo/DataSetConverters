@@ -88,6 +88,18 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         testDataSet.AcceptChanges()
         testDataSet
 
+    let generateTestDataSetWithChanges() =
+        let testDataSet = generateTestDataSet()
+        let faker = Faker()
+        Seq.cast<TestDataSet.DataTable1Row> testDataSet.DataTable1.Rows |> Seq.iteri(fun i dataTable1Row -> if i % 2 = 0 then dataTable1Row.SByteValue <- faker.Random.SByte())
+        Seq.cast<TestDataSet.DataTable2Row> testDataSet.DataTable2.Rows |> Seq.iteri(fun i dataTable2Row -> if i % 2 = 0 then dataTable2Row.Name <- faker.Name.FullName())
+        Seq.cast<TestDataSet.DataTable3Row> testDataSet.DataTable3.Rows |> Seq.iteri(fun i dataTable3Row -> if i % 2 = 0 then dataTable3Row.GuidValue <- faker.Random.Guid())
+        Seq.cast<TestDataSet.DataTable4Row> testDataSet.DataTable4.Rows |> Seq.iteri(fun i dataTable4Row -> if i % 2 = 0 then dataTable4Row.UInt64Value <- faker.Random.ULong())
+        Seq.cast<TestDataSet.DataTable5Row> testDataSet.DataTable5.Rows |> Seq.iteri(fun i dataTable5Row -> if i % 2 = 0 then dataTable5Row.DecimalValue <- faker.Random.Decimal())
+        Seq.cast<TestDataSet.DataTable6Row> testDataSet.DataTable6.Rows |> Seq.iteri(fun i dataTable6Row -> if i % 2 = 0 then dataTable6Row.DateTimeOffsetValue <- DateTimeOffset.Now)
+
+        testDataSet
+
     member private this.TestOutputHelper = testOutputHelper
 
     [<Fact>]
@@ -179,3 +191,46 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON BinaryFormatter {0} ms.", stopwatch.ElapsedMilliseconds)
 
+    [<Fact>]
+    member this.``serialize deserialize big data set with changes JSON DataSetConverters 1000 times``() =
+        let testDataSet = generateTestDataSetWithChanges()
+
+        let stopwatch = Stopwatch.StartNew()
+        for _count = 1 to 1000 do
+            let jsonDataSet = JsonConvert.SerializeObject(testDataSet, DataSetConverter())
+            JsonConvert.DeserializeObject<DataSet>(jsonDataSet, DataSetConverter()) |> ignore
+
+        stopwatch.Stop()
+        this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataSetConverters {0} ms.", stopwatch.ElapsedMilliseconds)
+
+    [<Fact>]
+    member this.``serialize deserialize big data set with changes JSON DataContractSerializer 1000 times``() =
+        let testDataSet = generateTestDataSetWithChanges()
+
+        let dataContractSerializer = new DataContractSerializer(typeof<TestDataSet>)
+        use memoryStream = new MemoryStream()
+        let stopwatch = Stopwatch.StartNew()
+        for _count = 1 to 1000 do
+            memoryStream.Position <- 0L
+            dataContractSerializer.WriteObject(memoryStream, testDataSet)
+            memoryStream.Position <- 0L
+            dataContractSerializer.ReadObject(memoryStream) |> ignore
+
+        stopwatch.Stop()
+        this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataContractSerializer {0} ms.", stopwatch.ElapsedMilliseconds)
+
+    [<Fact>]
+    member this.``serialize deserialize big data set with changes JSON BinaryFormatter 1000 times``() =
+        let testDataSet = generateTestDataSetWithChanges()
+
+        let binaryFormatter = new BinaryFormatter()
+        use memoryStream = new MemoryStream()
+        let stopwatch = Stopwatch.StartNew()
+        for _count = 1 to 1000 do
+            memoryStream.Position <- 0L
+            binaryFormatter.Serialize(memoryStream, testDataSet)
+            memoryStream.Position <- 0L
+            binaryFormatter.Deserialize(memoryStream) |> ignore
+
+        stopwatch.Stop()
+        this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON BinaryFormatter {0} ms.", stopwatch.ElapsedMilliseconds)
