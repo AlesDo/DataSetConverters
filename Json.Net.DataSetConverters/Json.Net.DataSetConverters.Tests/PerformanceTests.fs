@@ -14,7 +14,7 @@ open System
 open System.Data
 
 type PerformanceTester(testOutputHelper: ITestOutputHelper) =
-    let generateTestDataSet() =
+    let generateTestDataSet(numberOfMainTableRows: int) =
         let testDataSet = new TestDataSet()
         let testDataTable1RowGenerator =
             Faker<TestDataSet.DataTable1Row>()
@@ -62,14 +62,14 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
 
         let mutable parentDataTable6Row = testDataTable6RowGenerator.Generate()
         testDataSet.DataTable6.AddDataTable6Row(parentDataTable6Row);
-        for _rowNumber = 1 to 100 do
+        for _rowNumber = 1 to numberOfMainTableRows do
             let newRow = testDataTable1RowGenerator.Generate()
             testDataSet.DataTable1.AddDataTable1Row(newRow)
             let newDataTable6Row = testDataTable6RowGenerator.Generate()
             newDataTable6Row.ParentId <- parentDataTable6Row.Id;
             testDataSet.DataTable6.AddDataTable6Row(newDataTable6Row);
             parentDataTable6Row <- newDataTable6Row
-            for _x = 1 to 10 do
+            for _x = 1 to (numberOfMainTableRows / 10) do
                 let newDataTable2Row = testDataTable2RowGenerator.Generate()
                 newDataTable2Row.DataTable1Id <- newRow.Id
                 testDataSet.DataTable2.AddDataTable2Row(newDataTable2Row)
@@ -88,8 +88,8 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         testDataSet.AcceptChanges()
         testDataSet
 
-    let generateTestDataSetWithChanges() =
-        let testDataSet = generateTestDataSet()
+    let generateTestDataSetWithChanges(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSet(numberOfMainTableRows)
         let faker = Faker()
         Seq.cast<TestDataSet.DataTable1Row> testDataSet.DataTable1.Rows |> Seq.iteri(fun i dataTable1Row -> if i % 2 = 0 then dataTable1Row.SByteValue <- faker.Random.SByte())
         Seq.cast<TestDataSet.DataTable2Row> testDataSet.DataTable2.Rows |> Seq.iteri(fun i dataTable2Row -> if i % 2 = 0 then dataTable2Row.Name <- faker.Name.FullName())
@@ -147,9 +147,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         this.TestOutputHelper.WriteLine("Serialize deserialize DataSet JSON BinaryFormatter {0} ms.", stopwatch.ElapsedMilliseconds)
 
 
-    [<Fact>]
-    member this.``serialize deserialize big data set JSON DataSetConverters 1000 times``() =
-        let testDataSet = generateTestDataSet()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set JSON DataSetConverters 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSet(numberOfMainTableRows)
 
         let stopwatch = Stopwatch.StartNew()
         for _count = 1 to 1000 do
@@ -159,9 +163,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataSetConverters {0} ms.", stopwatch.ElapsedMilliseconds)
 
-    [<Fact>]
-    member this.``serialize deserialize big data set JSON DataContractSerializer 1000 times``() =
-        let testDataSet = generateTestDataSet()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set JSON DataContractSerializer 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSet(numberOfMainTableRows)
 
         let dataContractSerializer = new DataContractSerializer(typeof<TestDataSet>)
         use memoryStream = new MemoryStream()
@@ -175,9 +183,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataContractSerializer {0} ms.", stopwatch.ElapsedMilliseconds)
 
-    [<Fact>]
-    member this.``serialize deserialize big data set JSON BinaryFormatter 1000 times``() =
-        let testDataSet = generateTestDataSet()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set JSON BinaryFormatter 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSet(numberOfMainTableRows)
 
         let binaryFormatter = new BinaryFormatter()
         use memoryStream = new MemoryStream()
@@ -191,9 +203,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON BinaryFormatter {0} ms.", stopwatch.ElapsedMilliseconds)
 
-    [<Fact>]
-    member this.``serialize deserialize big data set with changes JSON DataSetConverters 1000 times``() =
-        let testDataSet = generateTestDataSetWithChanges()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set with changes JSON DataSetConverters 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSetWithChanges(numberOfMainTableRows)
 
         let stopwatch = Stopwatch.StartNew()
         for _count = 1 to 1000 do
@@ -203,9 +219,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataSetConverters {0} ms.", stopwatch.ElapsedMilliseconds)
 
-    [<Fact>]
-    member this.``serialize deserialize big data set with changes JSON DataContractSerializer 1000 times``() =
-        let testDataSet = generateTestDataSetWithChanges()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set with changes JSON DataContractSerializer 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSetWithChanges(numberOfMainTableRows)
 
         let dataContractSerializer = new DataContractSerializer(typeof<TestDataSet>)
         use memoryStream = new MemoryStream()
@@ -219,9 +239,13 @@ type PerformanceTester(testOutputHelper: ITestOutputHelper) =
         stopwatch.Stop()
         this.TestOutputHelper.WriteLine("Serialize deserialize Large DataSet JSON DataContractSerializer {0} ms.", stopwatch.ElapsedMilliseconds)
 
-    [<Fact>]
-    member this.``serialize deserialize big data set with changes JSON BinaryFormatter 1000 times``() =
-        let testDataSet = generateTestDataSetWithChanges()
+    [<Theory>]
+    [<InlineData(20)>]
+    [<InlineData(50)>]
+    [<InlineData(100)>]
+    [<InlineData(200)>]
+    member this.``serialize deserialize big data set with changes JSON BinaryFormatter 1000 times``(numberOfMainTableRows: int) =
+        let testDataSet = generateTestDataSetWithChanges(numberOfMainTableRows)
 
         let binaryFormatter = new BinaryFormatter()
         use memoryStream = new MemoryStream()
