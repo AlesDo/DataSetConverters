@@ -2,17 +2,13 @@
 
 open System
 open Xunit
-open FsCheck
 open FsCheck.Xunit
 open System.Data
 open Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Globalization
-open System.Text.RegularExpressions
-open FsCheck
-open System.Collections.Generic
-open System.Linq
-open TestHelpers
+open FsCheckGenerators
+open Comparers
 open Json.Net.DataSetConverters.Tests.TypedDataSets
 
 [<Fact>]

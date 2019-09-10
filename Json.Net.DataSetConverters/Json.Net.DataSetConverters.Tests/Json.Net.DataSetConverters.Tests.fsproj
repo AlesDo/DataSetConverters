@@ -3,7 +3,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TestHelpers.fs" />
+    <Compile Include="Comparers.fs" />
+    <Compile Include="FsCheckGenerators.fs" />
     <Compile Include="DataSetConverterTests.fs" />
     <Compile Include="DataTableConverterTests.fs" />
     <Compile Include="ExtensionTests.fs" />
