@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ExporterConfig.fs" />
     <Compile Include="DataSetGenerator.fs" />
     <Compile Include="DataSetDeSerialization.fs" />
     <Compile Include="DataSetSerialization.fs" />

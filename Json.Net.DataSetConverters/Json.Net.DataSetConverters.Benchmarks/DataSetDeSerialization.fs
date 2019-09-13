@@ -8,8 +8,9 @@ open System.Runtime.Serialization
 open Newtonsoft.Json
 open Json.Net.DataSetConverters
 open DataSetGenerator
+open ExporterConfig
 
-[<InProcess>]
+[<InProcess; MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
 type DataSetDeSerialization() =
 
     let binaryFormatterDataSet = new MemoryStream()
@@ -26,7 +27,7 @@ type DataSetDeSerialization() =
        memoryStream.Position <- 0L
        dataContractSerializer.WriteObject(memoryStream, dataSet)
 
-    [<Params(0, 10, 20, 50, 100)>]
+    [<Params(0, 1, 2, 5, 10, 20)>]
     member val DataSetSize = 0 with get, set
     [<Params(false, true)>]
     member val WithChanges = false with get, set

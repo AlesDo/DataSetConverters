@@ -59,7 +59,7 @@ let generateTestDataSet(numberOfMainTableRows: int) =
         newDataTable6Row.ParentId <- parentDataTable6Row.Id;
         testDataSet.DataTable6.AddDataTable6Row(newDataTable6Row);
         parentDataTable6Row <- newDataTable6Row
-        for _x = 1 to (numberOfMainTableRows / 10) do
+        for _x = 1 to (numberOfMainTableRows * 10) do
             let newDataTable2Row = testDataTable2RowGenerator.Generate()
             newDataTable2Row.DataTable1Id <- newRow.Id
             testDataSet.DataTable2.AddDataTable2Row(newDataTable2Row)
