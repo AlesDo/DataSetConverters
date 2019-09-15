@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-    <PackageReference Include="Bogus" Version="28.0.3" />
+    <PackageReference Include="Bogus" Version="28.2.1" />
   </ItemGroup>
 
   <ItemGroup>
