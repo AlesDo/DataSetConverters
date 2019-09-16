@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestDataSet" targetNamespace="http://tempuri.org/TestDataSet.xsd" xmlns:mstns="http://tempuri.org/TestDataSet.xsd" xmlns="http://tempuri.org/TestDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataTable6" msprop:Generator_TableClassName="DataTable6DataTable" msprop:Generator_TableVarName="tableDataTable6" msprop:Generator_RowChangedName="DataTable6RowChanged" msprop:Generator_TablePropName="DataTable6" msprop:Generator_RowDeletingName="DataTable6RowDeleting" msprop:Generator_RowChangingName="DataTable6RowChanging" msprop:Generator_RowEvHandlerName="DataTable6RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable6RowDeleted" msprop:Generator_RowClassName="DataTable6Row" msprop:Generator_UserTableName="DataTable6" msprop:Generator_RowEvArgName="DataTable6RowChangeEvent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+        <xs:element name="ParentId" msprop:Generator_ColumnVarNameInTable="columnParentId" msprop:Generator_ColumnPropNameInRow="ParentId" msprop:Generator_ColumnPropNameInTable="ParentIdColumn" msprop:Generator_UserColumnName="ParentId" type="xs:int" minOccurs="0" />
+        <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+        <xs:element name="DateTimeValue" msprop:Generator_ColumnVarNameInTable="columnDateTimeValue" msprop:Generator_ColumnPropNameInRow="DateTimeValue" msprop:Generator_ColumnPropNameInTable="DateTimeValueColumn" msprop:Generator_UserColumnName="DateTimeValue" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="DateTimeOffsetValue" msdata:DataType="System.DateTimeOffset" msprop:Generator_ColumnVarNameInTable="columnDateTimeOffsetValue" msprop:Generator_ColumnPropNameInRow="DateTimeOffsetValue" msprop:Generator_ColumnPropNameInTable="DateTimeOffsetValueColumn" msprop:Generator_UserColumnName="DateTimeOffsetValue" type="xs:anyType" minOccurs="0" />
+        <xs:element name="TimeSpanValue" msprop:Generator_ColumnVarNameInTable="columnTimeSpanValue" msprop:Generator_ColumnPropNameInRow="TimeSpanValue" msprop:Generator_ColumnPropNameInTable="TimeSpanValueColumn" msprop:Generator_UserColumnName="TimeSpanValue" type="xs:duration" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TestDataSet" msprop:Generator_UserDSName="TestDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="DataTable6" />
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="SByteValue" msprop:Generator_ColumnVarNameInTable="columnSByteValue" msprop:Generator_ColumnPropNameInRow="SByteValue" msprop:Generator_ColumnPropNameInTable="SByteValueColumn" msprop:Generator_UserColumnName="SByteValue" type="xs:byte" minOccurs="0" />
+              <xs:element name="UInt16Value" msprop:Generator_ColumnVarNameInTable="columnUInt16Value" msprop:Generator_ColumnPropNameInRow="UInt16Value" msprop:Generator_ColumnPropNameInTable="UInt16ValueColumn" msprop:Generator_UserColumnName="UInt16Value" type="xs:unsignedShort" minOccurs="0" />
+              <xs:element name="UInt32Value" msprop:Generator_ColumnVarNameInTable="columnUInt32Value" msprop:Generator_ColumnPropNameInRow="UInt32Value" msprop:Generator_ColumnPropNameInTable="UInt32ValueColumn" msprop:Generator_UserColumnName="UInt32Value" type="xs:unsignedInt" minOccurs="0" />
+              <xs:element name="UInt64Value" msprop:Generator_ColumnVarNameInTable="columnUInt64Value" msprop:Generator_ColumnPropNameInRow="UInt64Value" msprop:Generator_ColumnPropNameInTable="UInt64ValueColumn" msprop:Generator_UserColumnName="UInt64Value" type="xs:unsignedLong" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable2" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_TableVarName="tableDataTable2" msprop:Generator_TablePropName="DataTable2" msprop:Generator_RowDeletingName="DataTable2RowDeleting" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_UserTableName="DataTable2" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent" msprop:Generator_RowClassName="DataTable2Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="DataTable1Id" msprop:Generator_ColumnVarNameInTable="columnDataTable1Id" msprop:Generator_ColumnPropNameInRow="DataTable1Id" msprop:Generator_ColumnPropNameInTable="DataTable1IdColumn" msprop:Generator_UserColumnName="DataTable1Id" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="BooleanValue" msprop:Generator_ColumnVarNameInTable="columnBooleanValue" msprop:Generator_ColumnPropNameInRow="BooleanValue" msprop:Generator_ColumnPropNameInTable="BooleanValueColumn" msprop:Generator_UserColumnName="BooleanValue" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ObjectValue" msdata:DataType="System.Object, netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" msprop:Generator_ColumnVarNameInTable="columnObjectValue" msprop:Generator_ColumnPropNameInRow="ObjectValue" msprop:Generator_ColumnPropNameInTable="ObjectValueColumn" msprop:Generator_UserColumnName="ObjectValue" type="xs:anyType" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable3" msprop:Generator_TableClassName="DataTable3DataTable" msprop:Generator_TableVarName="tableDataTable3" msprop:Generator_TablePropName="DataTable3" msprop:Generator_RowDeletingName="DataTable3RowDeleting" msprop:Generator_RowChangingName="DataTable3RowChanging" msprop:Generator_RowEvHandlerName="DataTable3RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable3RowDeleted" msprop:Generator_UserTableName="DataTable3" msprop:Generator_RowChangedName="DataTable3RowChanged" msprop:Generator_RowEvArgName="DataTable3RowChangeEvent" msprop:Generator_RowClassName="DataTable3Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="DataTable1Id" msprop:Generator_ColumnVarNameInTable="columnDataTable1Id" msprop:Generator_ColumnPropNameInRow="DataTable1Id" msprop:Generator_ColumnPropNameInTable="DataTable1IdColumn" msprop:Generator_UserColumnName="DataTable1Id" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="CharValue" msprop:Generator_ColumnVarNameInTable="columnCharValue" msprop:Generator_ColumnPropNameInRow="CharValue" msprop:Generator_ColumnPropNameInTable="CharValueColumn" msprop:Generator_UserColumnName="CharValue" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="GuidValue" msdata:DataType="System.Guid, netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" msprop:Generator_ColumnVarNameInTable="columnGuidValue" msprop:Generator_ColumnPropNameInRow="GuidValue" msprop:Generator_ColumnPropNameInTable="GuidValueColumn" msprop:Generator_UserColumnName="GuidValue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable4" msprop:Generator_TableClassName="DataTable4DataTable" msprop:Generator_TableVarName="tableDataTable4" msprop:Generator_TablePropName="DataTable4" msprop:Generator_RowDeletingName="DataTable4RowDeleting" msprop:Generator_RowChangingName="DataTable4RowChanging" msprop:Generator_RowEvHandlerName="DataTable4RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable4RowDeleted" msprop:Generator_UserTableName="DataTable4" msprop:Generator_RowChangedName="DataTable4RowChanged" msprop:Generator_RowEvArgName="DataTable4RowChangeEvent" msprop:Generator_RowClassName="DataTable4Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="DataTable1Id" msprop:Generator_ColumnVarNameInTable="columnDataTable1Id" msprop:Generator_ColumnPropNameInRow="DataTable1Id" msprop:Generator_ColumnPropNameInTable="DataTable1IdColumn" msprop:Generator_UserColumnName="DataTable1Id" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="ByteValue" msprop:Generator_ColumnVarNameInTable="columnByteValue" msprop:Generator_ColumnPropNameInRow="ByteValue" msprop:Generator_ColumnPropNameInTable="ByteValueColumn" msprop:Generator_UserColumnName="ByteValue" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="UInt16Value" msprop:Generator_ColumnVarNameInTable="columnUInt16Value" msprop:Generator_ColumnPropNameInRow="UInt16Value" msprop:Generator_ColumnPropNameInTable="UInt16ValueColumn" msprop:Generator_UserColumnName="UInt16Value" type="xs:unsignedShort" minOccurs="0" />
+              <xs:element name="UInt32Value" msprop:Generator_ColumnVarNameInTable="columnUInt32Value" msprop:Generator_ColumnPropNameInRow="UInt32Value" msprop:Generator_ColumnPropNameInTable="UInt32ValueColumn" msprop:Generator_UserColumnName="UInt32Value" type="xs:unsignedInt" minOccurs="0" />
+              <xs:element name="UInt64Value" msprop:Generator_ColumnVarNameInTable="columnUInt64Value" msprop:Generator_ColumnPropNameInRow="UInt64Value" msprop:Generator_ColumnPropNameInTable="UInt64ValueColumn" msprop:Generator_UserColumnName="UInt64Value" type="xs:unsignedLong" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable5" msprop:Generator_TableClassName="DataTable5DataTable" msprop:Generator_TableVarName="tableDataTable5" msprop:Generator_TablePropName="DataTable5" msprop:Generator_RowDeletingName="DataTable5RowDeleting" msprop:Generator_RowChangingName="DataTable5RowChanging" msprop:Generator_RowEvHandlerName="DataTable5RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable5RowDeleted" msprop:Generator_UserTableName="DataTable5" msprop:Generator_RowChangedName="DataTable5RowChanged" msprop:Generator_RowEvArgName="DataTable5RowChangeEvent" msprop:Generator_RowClassName="DataTable5Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Key" msdata:DataType="System.Guid, netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" msprop:Generator_ColumnVarNameInTable="columnKey" msprop:Generator_ColumnPropNameInRow="Key" msprop:Generator_ColumnPropNameInTable="KeyColumn" msprop:Generator_UserColumnName="Key" type="xs:string" />
+              <xs:element name="DataTable2Id" msprop:Generator_ColumnVarNameInTable="columnDataTable2Id" msprop:Generator_ColumnPropNameInRow="DataTable2Id" msprop:Generator_ColumnPropNameInTable="DataTable2IdColumn" msprop:Generator_UserColumnName="DataTable2Id" type="xs:int" minOccurs="0" />
+              <xs:element name="DataTable3Id" msprop:Generator_ColumnVarNameInTable="columnDataTable3Id" msprop:Generator_ColumnPropNameInRow="DataTable3Id" msprop:Generator_ColumnPropNameInTable="DataTable3IdColumn" msprop:Generator_UserColumnName="DataTable3Id" type="xs:int" minOccurs="0" />
+              <xs:element name="DataTable4Id" msprop:Generator_ColumnVarNameInTable="columnDataTable4Id" msprop:Generator_ColumnPropNameInRow="DataTable4Id" msprop:Generator_ColumnPropNameInTable="DataTable4IdColumn" msprop:Generator_UserColumnName="DataTable4Id" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="DecimalValue" msprop:Generator_ColumnVarNameInTable="columnDecimalValue" msprop:Generator_ColumnPropNameInRow="DecimalValue" msprop:Generator_ColumnPropNameInTable="DecimalValueColumn" msprop:Generator_UserColumnName="DecimalValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DoubleValue" msprop:Generator_ColumnVarNameInTable="columnDoubleValue" msprop:Generator_ColumnPropNameInRow="DoubleValue" msprop:Generator_ColumnPropNameInTable="DoubleValueColumn" msprop:Generator_UserColumnName="DoubleValue" type="xs:double" minOccurs="0" />
+              <xs:element name="SingleValue" msprop:Generator_ColumnVarNameInTable="columnSingleValue" msprop:Generator_ColumnPropNameInRow="SingleValue" msprop:Generator_ColumnPropNameInTable="SingleValueColumn" msprop:Generator_UserColumnName="SingleValue" type="xs:float" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable6" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="DataTable1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="DataTable2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable2" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="DataTable3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable3" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="DataTable4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable4" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="DataTable5_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable5" />
+      <xs:field xpath="mstns:Key" />
+    </xs:unique>
+    <xs:keyref name="FK_DataTable4_DataTable5" refer="DataTable4_Constraint1" msprop:rel_Generator_UserChildTable="DataTable5" msprop:rel_Generator_ChildPropName="GetDataTable5Rows" msprop:rel_Generator_UserRelationName="FK_DataTable4_DataTable5" msprop:rel_Generator_ParentPropName="DataTable4Row" msprop:rel_Generator_RelationVarName="relationFK_DataTable4_DataTable5" msprop:rel_Generator_UserParentTable="DataTable4">
+      <xs:selector xpath=".//mstns:DataTable5" />
+      <xs:field xpath="mstns:DataTable4Id" />
+    </xs:keyref>
+    <xs:keyref name="FK_DataTable3_DataTable5" refer="DataTable3_Constraint1" msprop:rel_Generator_UserChildTable="DataTable5" msprop:rel_Generator_ChildPropName="GetDataTable5Rows" msprop:rel_Generator_UserRelationName="FK_DataTable3_DataTable5" msprop:rel_Generator_ParentPropName="DataTable3Row" msprop:rel_Generator_RelationVarName="relationFK_DataTable3_DataTable5" msprop:rel_Generator_UserParentTable="DataTable3">
+      <xs:selector xpath=".//mstns:DataTable5" />
+      <xs:field xpath="mstns:DataTable3Id" />
+    </xs:keyref>
+    <xs:keyref name="FK_DataTable2_DataTable5" refer="DataTable2_Constraint1" msprop:rel_Generator_UserChildTable="DataTable5" msprop:rel_Generator_ChildPropName="GetDataTable5Rows" msprop:rel_Generator_UserRelationName="FK_DataTable2_DataTable5" msprop:rel_Generator_ParentPropName="DataTable2Row" msprop:rel_Generator_RelationVarName="relationFK_DataTable2_DataTable5" msprop:rel_Generator_UserParentTable="DataTable2">
+      <xs:selector xpath=".//mstns:DataTable5" />
+      <xs:field xpath="mstns:DataTable2Id" />
+    </xs:keyref>
+    <xs:keyref name="FK_DataTable1_DataTable4" refer="DataTable1_Constraint1" msprop:rel_Generator_UserChildTable="DataTable4" msprop:rel_Generator_ChildPropName="GetDataTable4Rows" msprop:rel_Generator_UserRelationName="FK_DataTable1_DataTable4" msprop:rel_Generator_ParentPropName="DataTable1Row" msprop:rel_Generator_RelationVarName="relationFK_DataTable1_DataTable4" msprop:rel_Generator_UserParentTable="DataTable1">
+      <xs:selector xpath=".//mstns:DataTable4" />
+      <xs:field xpath="mstns:DataTable1Id" />
+    </xs:keyref>
+    <xs:keyref name="FK_DataTable1_DataTable2" refer="DataTable1_Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:DataTable2" />
+      <xs:field xpath="mstns:DataTable1Id" />
+    </xs:keyref>
+    <xs:keyref name="DataTable6_DataTable6" refer="Constraint1" msprop:rel_Generator_UserChildTable="DataTable6" msprop:rel_Generator_ChildPropName="GetDataTable6Rows" msprop:rel_Generator_UserRelationName="DataTable6_DataTable6" msprop:rel_Generator_ParentPropName="DataTable6RowParent" msprop:rel_Generator_RelationVarName="relationDataTable6_DataTable6" msprop:rel_Generator_UserParentTable="DataTable6" msdata:UpdateRule="SetNull" msdata:DeleteRule="SetNull">
+      <xs:selector xpath=".//mstns:DataTable6" />
+      <xs:field xpath="mstns:ParentId" />
+    </xs:keyref>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="DataTable1_DataTable3" msdata:parent="DataTable1" msdata:child="DataTable3" msdata:parentkey="Id" msdata:childkey="DataTable1Id" msprop:Generator_UserChildTable="DataTable3" msprop:Generator_ChildPropName="GetDataTable3Rows" msprop:Generator_UserRelationName="DataTable1_DataTable3" msprop:Generator_ParentPropName="DataTable1Row" msprop:Generator_RelationVarName="relationDataTable1_DataTable3" msprop:Generator_UserParentTable="DataTable1" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

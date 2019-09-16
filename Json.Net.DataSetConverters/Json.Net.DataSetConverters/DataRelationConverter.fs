@@ -4,6 +4,8 @@ open System.Data
 open JsonSerializationExtensions
 open Newtonsoft.Json.Serialization
 open ColumnSerialization
+open System
+open PropertyCollectionExtensions
 
 type DataRelationConverter(dataSet: DataSet) =
     inherit JsonConverter()
@@ -34,7 +36,8 @@ type DataRelationConverter(dataSet: DataSet) =
     override this.CanConvert(objectType) =
         typeof<DataRelation>.IsAssignableFrom(objectType)
 
-    override this.ReadJson(reader, _, _, serializer) =
+    override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else
@@ -45,17 +48,24 @@ type DataRelationConverter(dataSet: DataSet) =
             let nested = reader.ReadPropertyFromOutput<bool>(serializer, Nested, ObjectName)
             let parentTableName = reader.ReadPropertyFromOutput<string>(serializer, ParentTable, ObjectName)
             let parentColumnList = readColumns(reader, serializer, dataSet.Tables.[parentTableName], ParentColumns, ObjectName)
-            let parentConstraintName = reader.ReadPropertyFromOutput<string>(serializer, ParentKeyConstraint, ObjectName)
+            reader.ReadPropertyFromOutput<string>(serializer, ParentKeyConstraint, ObjectName) |> ignore
             reader.ReadAndAssert()
             reader.ValidatePropertyName(ChildKeyConstraint, ObjectName)
             reader.ReadAndAssert()
             let hasChildConstraint = (reader.TokenType = JsonToken.StartObject) && (reader.TokenType <> JsonToken.Null)
-            let dataRelation = new DataRelation(relationName, List.toArray(parentColumnList), List.toArray(childColumnList), hasChildConstraint)
-            dataSet.Relations.Add(dataRelation)
-            dataRelation.Nested <- nested;
+            let dataRelation = if isNull existingValue then new DataRelation(relationName, List.toArray(parentColumnList), List.toArray(childColumnList), hasChildConstraint) else existingValue :?> DataRelation
+            if isNull existingValue then
+               dataSet.Relations.Add(dataRelation)
+               dataRelation.Nested <- nested
+
             if hasChildConstraint then
                 let foreignKeyConstraintConverter = ForeignKeyConstraintConverter()
-                foreignKeyConstraintConverter.ReadJson(reader, typeof<ForeignKeyConstraint>, dataRelation.ChildKeyConstraint, serializer) |> ignore
+                let foreignKeyConstraint = foreignKeyConstraintConverter.ReadJson(reader, typeof<ForeignKeyConstraint>, dataRelation.ChildKeyConstraint, serializer) :?> ForeignKeyConstraint
+                dataRelation.ChildKeyConstraint.ExtendedProperties.ReplaceItems(foreignKeyConstraint.ExtendedProperties)
+                dataRelation.ChildKeyConstraint.ConstraintName <- foreignKeyConstraint.ConstraintName
+                dataRelation.ChildKeyConstraint.AcceptRejectRule <- foreignKeyConstraint.AcceptRejectRule
+                dataRelation.ChildKeyConstraint.DeleteRule <- foreignKeyConstraint.DeleteRule
+                dataRelation.ChildKeyConstraint.UpdateRule <- foreignKeyConstraint.UpdateRule
 
             reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, dataRelation.ExtendedProperties, new PropertyCollectionConverter()) |> ignore
             reader.ReadAndAssert()

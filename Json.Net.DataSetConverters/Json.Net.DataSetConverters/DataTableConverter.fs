@@ -1,10 +1,11 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
-open System.Collections
 open Newtonsoft.Json.Serialization
 open System.Globalization
+open System
+open PropertyCollectionExtensions
 
 type DataTableConverter() =
     inherit JsonConverter()
@@ -34,7 +35,7 @@ type DataTableConverter() =
     [<Literal>]
     static let Rows = "Rows"
 
-    static let readColumns(reader: JsonReader, serializer: JsonSerializer, dataTable: DataTable, skipAdd: bool) =
+    static let readColumns(reader: JsonReader, serializer: JsonSerializer, dataTable: DataTable) =
         reader.ReadAndAssert()
         reader.ValidatePropertyName(Columns, ObjectName)
         reader.ReadAndAssert()
@@ -43,7 +44,25 @@ type DataTableConverter() =
         let dataColumnConverter = DataColumnConverter()
         while reader.TokenType <> JsonToken.EndArray do
             let dataColumn = dataColumnConverter.ReadJson(reader, typeof<DataColumn>, null, serializer) :?> DataColumn
-            if not skipAdd then
+            if dataTable.Columns.Contains(dataColumn.ColumnName) then // because we don't know which column it is before it is deserialized we need to copy property values if it already exists
+                let existingDataColumn = dataTable.Columns.[dataColumn.ColumnName]
+                existingDataColumn.AllowDBNull <- dataColumn.AllowDBNull
+                existingDataColumn.AutoIncrement <- dataColumn.AutoIncrement
+                existingDataColumn.AutoIncrementSeed <- dataColumn.AutoIncrementSeed
+                existingDataColumn.AutoIncrementStep <- dataColumn.AutoIncrementStep
+                existingDataColumn.Caption <- dataColumn.Caption
+                existingDataColumn.ColumnMapping <- dataColumn.ColumnMapping
+                existingDataColumn.DataType <- dataColumn.DataType
+                existingDataColumn.DateTimeMode <- dataColumn.DateTimeMode
+                if not existingDataColumn.AutoIncrement then
+                    existingDataColumn.DefaultValue <- dataColumn.DefaultValue
+                existingDataColumn.Expression <- dataColumn.Expression
+                existingDataColumn.ExtendedProperties.ReplaceItems(dataColumn.ExtendedProperties)
+                existingDataColumn.MaxLength <- dataColumn.MaxLength
+                existingDataColumn.Namespace <- dataColumn.Namespace
+                existingDataColumn.Prefix <- dataColumn.Prefix
+                existingDataColumn.ReadOnly <- dataColumn.ReadOnly
+            else
                 dataTable.Columns.Add(dataColumn)
             reader.ReadAndAssert();
         reader.ValidateJsonToken(JsonToken.EndArray, ObjectName);
@@ -56,7 +75,12 @@ type DataTableConverter() =
         reader.ReadAndAssert()
         let uniqueConstraintConverter = UniqueConstraintConverter(dataTable)
         while reader.TokenType <> JsonToken.EndArray do
-            dataTable.Constraints.Add(uniqueConstraintConverter.ReadJson(reader, typeof<UniqueConstraint>, null, serializer) :?> UniqueConstraint)
+            let uniqueConstraint = uniqueConstraintConverter.ReadJson(reader, typeof<UniqueConstraint>, null, serializer) :?> UniqueConstraint
+            if dataTable.Constraints.Contains(uniqueConstraint.ConstraintName) then
+                let existingUniqueConstraint = dataTable.Constraints.[uniqueConstraint.ConstraintName]
+                existingUniqueConstraint.ExtendedProperties.ReplaceItems(uniqueConstraint.ExtendedProperties)
+            else
+                dataTable.Constraints.Add(uniqueConstraint)
         reader.ValidateJsonToken(JsonToken.EndArray, ObjectName)
 
     static let readRows(reader: JsonReader, serializer: JsonSerializer, dataTable: DataTable) =
@@ -99,6 +123,7 @@ type DataTableConverter() =
         typeof<DataTable>.IsAssignableFrom(objectType)
 
     override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else
@@ -116,7 +141,7 @@ type DataTableConverter() =
             dataTable.Prefix <- reader.ReadPropertyFromOutput<string>(serializer, Prefix, ObjectName)
             dataTable.RemotingFormat <- reader.ReadPropertyFromOutput<SerializationFormat>(serializer, RemotingFormat, ObjectName)
             dataTable.TableName <- reader.ReadPropertyFromOutput<string>(serializer, TableName, ObjectName)
-            readColumns(reader, serializer, dataTable, objectType.IsSubclassOf(typeof<DataTable>))
+            readColumns(reader, serializer, dataTable)
             readConstraints(reader, serializer, dataTable)
             readRows(reader, serializer, dataTable)
             reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
@@ -141,4 +166,3 @@ type DataTableConverter() =
         writeRows(writer, serializer, resolver, dataTable)
         writer.WriteEndObject()
 
-    

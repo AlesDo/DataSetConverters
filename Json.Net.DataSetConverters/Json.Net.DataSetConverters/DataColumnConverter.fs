@@ -1,9 +1,10 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
 open System.Collections
 open Newtonsoft.Json.Serialization
+open System
 
 type DataColumnConverter() =
     inherit JsonConverter()
@@ -47,7 +48,8 @@ type DataColumnConverter() =
     override this.CanConvert(objectType) =
         typeof<DataColumn>.IsAssignableFrom(objectType)
 
-    override this.ReadJson(reader, _, existingValue, serializer) =
+    override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else
@@ -65,9 +67,12 @@ type DataColumnConverter() =
             dataColumn.ColumnName <- reader.ReadPropertyFromOutput(serializer, ColumnName, ObjectName)
             dataColumn.DataType <- reader.ReadPropertyFromOutput(serializer, DataType, ObjectName)
             dataColumn.DateTimeMode <- reader.ReadPropertyFromOutput(serializer, DateTimeMode, ObjectName)
-            dataColumn.DefaultValue <- reader.ReadPropertyFromOutput(serializer, DefaultValue, ObjectName)
+            if dataColumn.AutoIncrement then
+               reader.ReadPropertyFromOutput(serializer, DefaultValue, ObjectName) |> ignore
+            else
+               dataColumn.DefaultValue <- reader.ReadPropertyFromOutput(serializer, DefaultValue, ObjectName)
             dataColumn.Expression <- reader.ReadPropertyFromOutput(serializer, Expression, ObjectName)
-            reader.ReadPropertyFromOutput(serializer, ExtendedProperties, ObjectName, dataColumn.ExtendedProperties, PropertyCollectionConverter()) |> ignore
+            reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, dataColumn.ExtendedProperties, PropertyCollectionConverter()) |> ignore
             dataColumn.MaxLength <- reader.ReadPropertyFromOutput(serializer, MaxLength, ObjectName)
             dataColumn.Namespace <- reader.ReadPropertyFromOutput(serializer, NamespaceName, ObjectName)
             dataColumn.Prefix <- reader.ReadPropertyFromOutput(serializer, Prefix, ObjectName)

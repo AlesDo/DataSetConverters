@@ -1,4 +1,4 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
@@ -16,14 +16,17 @@ type DataRowConverter(dataTable: DataTable) =
     static let OriginalRow = "OriginalRow"
     [<Literal>]
     static let RowState = "RowState"
-    [<Literal>]
-    static let IsPrimaryKey = "IsPrimaryKey"
-    [<Literal>]
-    static let ExtendedProperties = "ExtendedProperties"
 
     static let readColumnValues(reader: JsonReader, serializer: JsonSerializer, dataRow: DataRow, dataTable: DataTable) = 
         for dataColumn in dataTable.Columns do
-            dataRow.[dataColumn] <- reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
+            if dataRow.RowState = DataRowState.Detached then
+                dataRow.[dataColumn] <- reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
+            else
+                if not dataColumn.ReadOnly then
+                    dataRow.[dataColumn] <- reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
+                else
+                    reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName) |> ignore
+  
 
     static let writeColumnValue(writer: JsonWriter, serializer: JsonSerializer, resolver: DefaultContractResolver, dataRow: DataRow, dataColumn: DataColumn, dataRowVersion: DataRowVersion) =
         let columnValue = dataRow.[dataColumn, dataRowVersion]

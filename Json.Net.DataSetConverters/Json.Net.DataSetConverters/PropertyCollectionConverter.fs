@@ -1,9 +1,10 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
 open System.Collections
 open Newtonsoft.Json.Serialization
+open System
 
 type PropertyCollectionConverter() =
     inherit JsonConverter()
@@ -34,6 +35,7 @@ type PropertyCollectionConverter() =
         typeof<PropertyCollection>.IsAssignableFrom(objectType)
 
     override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
         if reader.TokenType = JsonToken.Null then
             null
         else

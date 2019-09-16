@@ -3,7 +3,7 @@ open Newtonsoft.Json
 open System.Data
 open JsonSerializationExtensions
 open Newtonsoft.Json.Serialization
-open ColumnSerialization
+open System
 
 type ForeignKeyConstraintConverter() =
     inherit JsonConverter()
@@ -24,8 +24,9 @@ type ForeignKeyConstraintConverter() =
     override this.CanConvert(objectType) =
         typeof<ForeignKeyConstraint>.IsAssignableFrom(objectType)
 
-    override this.ReadJson(reader, _, existingValue, serializer) =
-        if reader.TokenType = JsonToken.Null || isNull(existingValue) then
+    override this.ReadJson(reader, objectType, existingValue, serializer) =
+        if not (this.CanConvert(objectType)) then raise (new ArgumentOutOfRangeException("objectType", "Invalid object type"))
+        if reader.TokenType = JsonToken.Null then
             null
         else
             let foreignKeyConstraint = existingValue :?> ForeignKeyConstraint

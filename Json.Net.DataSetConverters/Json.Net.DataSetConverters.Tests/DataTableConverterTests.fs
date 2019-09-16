@@ -8,11 +8,9 @@ open System.Data
 open Json.Net.DataSetConverters
 open Newtonsoft.Json
 open System.Globalization
-open System.Text.RegularExpressions
-open FsCheck
-open System.Collections.Generic
 open System.Linq
-open TestHelpers
+open FsCheckGenerators
+open Comparers
 
 [<Fact>]
 let ``Empty table serialize deserialize`` () =
@@ -107,7 +105,7 @@ let columnDataGenerator = (Arb.Default.String(), Gen.elements [typeof<int>, type
 
 [<Property(Arbitrary =[| typeof<MyGenerators> |])>]
 let ``DataTable serialize deserialize columns`` (dataColumns: DataColumn[]) =
-   let distinctDataColumns = dataColumns |> Seq.distinctBy(fun dc -> dc.ColumnName)
+   let distinctDataColumns = dataColumns |> Seq.distinctBy(fun dc -> dc.ColumnName.ToLowerInvariant())
    let dataTable = new DataTable()
    dataTable.Columns.AddRange(distinctDataColumns |> Seq.toArray)
 
@@ -262,4 +260,35 @@ let ``DataTable serialize deserialize rows preserves row state and original valu
 
    Assert.Equal<DataRowState>([| DataRowState.Unchanged; DataRowState.Modified; DataRowState.Deleted; DataRowState.Added |] :> seq<DataRowState>, deserializedDataTable.Rows.Cast<DataRow>() |> Seq.map(fun dataRow -> dataRow.RowState))
    Assert.Equal("string2", deserializedDataTable.Rows.[1].["string2", DataRowVersion.Original] :?> string)
+
+[<Property>]
+let ``TypedDataTable Column`` (byteArray1: byte[], byteArray2: byte[] option) =
+   let dataTable = new DataTable()
+   dataTable.Columns.Add("timeSpan1", typeof<byte array>) |> ignore
+   dataTable.Columns.Add("TimeSpan2", typeof<byte array>) |> ignore
+
+   let columnValues: obj [] = [| byteArray1; optionToDbNull byteArray2 |]
+   dataTable.LoadDataRow(columnValues, LoadOption.Upsert) |> ignore
+   let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
+   let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
+
+   Assert.Equal<obj>(columnValues :> seq<obj>, deserializedDataTable.Rows.Item(0).ItemArray :> seq<obj>, arrayEqualityComparer)
+
+[<Property>]
+let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: uint16) = 
+    let dataTable = new DataTable()
+    dataTable.Columns.Add(new DataColumn (ColumnName = "Id", DataType = typeof<int>, AutoIncrement = true, Unique = true, ReadOnly = true))
+    dataTable.Columns.Add("Value", typeof<int>) |> ignore
+    dataTable.PrimaryKey <- [| dataTable.Columns.[0] |]
+    for _count = 1 to numberOfRows |> int do
+        dataTable.Rows.Add() |> ignore
+    dataTable.AcceptChanges()
+
+    dataTable.Rows.OfType<DataRow>() |> Seq.iteri(fun index row -> if index % 2 = 0 then row.["Value"] <- 1)
+
+    let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
+    let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
+
+    Assert.Equal(dataTable, deserializedDataTable, dataTableComparer)
+
 

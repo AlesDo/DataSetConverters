@@ -27,7 +27,7 @@ type DataSetConverter() =
     [<Literal>]
     static let Prefix = "Prefix"
     [<Literal>]
-    static let Relations = "Realtions"
+    static let Relations = "Relations"
     [<Literal>]
     static let RemotingFormat = "RemotingFormat"
     [<Literal>]
@@ -45,9 +45,8 @@ type DataSetConverter() =
         while reader.TokenType <> JsonToken.EndObject do
             let dataTable = dataSet.Tables.[reader.Value :?> string]
             reader.ReadAndAssert()
-            let exists = dataTable <> null
-            let dataTable = dataTableConverter.ReadJson(reader, typeof<DataTable>, dataTable, serializer) :?> DataTable
-            if not exists then dataSet.Tables.Add(dataTable)
+            let dataTable = dataTableConverter.ReadJson(reader, (if dataTable <> null then dataTable.GetType() else typeof<DataTable>), dataTable, serializer) :?> DataTable
+            if not (dataSet.Tables.Contains(dataTable.TableName)) then dataSet.Tables.Add(dataTable)
             reader.ReadAndAssert()
             
         reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
@@ -97,7 +96,7 @@ type DataSetConverter() =
             dataSet.CaseSensitive <- reader.ReadPropertyFromOutput<bool>(serializer, CaseSensitive, ObjectName)
             dataSet.DataSetName <- reader.ReadPropertyFromOutput<string>(serializer, DataSetName, ObjectName)
             dataSet.EnforceConstraints <- reader.ReadPropertyFromOutput<bool>(serializer, EnforceConstraints, ObjectName)
-            reader.ReadPropertyFromOutput(serializer, ExtendedProperties, ObjectName, dataSet.ExtendedProperties, PropertyCollectionConverter()) |> ignore
+            reader.ReadPropertyFromOutput<PropertyCollection>(serializer, ExtendedProperties, ObjectName, dataSet.ExtendedProperties, PropertyCollectionConverter()) |> ignore
             dataSet.Locale <- CultureInfo(reader.ReadPropertyFromOutput<string>(serializer, Locale, ObjectName))
             dataSet.Namespace <- reader.ReadPropertyFromOutput<string>(serializer, Namespace, ObjectName)
             dataSet.Prefix <- reader.ReadPropertyFromOutput<string>(serializer, Prefix, ObjectName)

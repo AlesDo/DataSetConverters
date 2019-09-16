@@ -1,11 +1,8 @@
-module ExtensionTests
+﻿module ExtensionTests
 
-open System
 open Xunit
-open FsCheck
 open FsCheck.Xunit
 open Json.Net.DataSetConverters.JsonSerializationExtensions
-open System.Reflection
 open Newtonsoft.Json
 
 
