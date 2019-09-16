@@ -16,7 +16,7 @@ open ExporterConfig
 type DataSetSerialization() =
     let mutable dataSet: TestDataSet = null
 
-    [<Params(0, 1, 2, 5, 10, 20)>]
+    [<Params(0, 1, 2, 5, 10, 20, 50)>]
     member val DataSetSize = 0 with get, set
     [<Params(false, true)>]
     member val WithChanges = false with get, set

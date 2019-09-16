@@ -275,12 +275,12 @@ let ``TypedDataTable Column`` (byteArray1: byte[], byteArray2: byte[] option) =
    Assert.Equal<obj>(columnValues :> seq<obj>, deserializedDataTable.Rows.Item(0).ItemArray :> seq<obj>, arrayEqualityComparer)
 
 [<Property>]
-let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: int) = 
+let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: uint16) = 
     let dataTable = new DataTable()
     dataTable.Columns.Add(new DataColumn (ColumnName = "Id", DataType = typeof<int>, AutoIncrement = true, Unique = true, ReadOnly = true))
     dataTable.Columns.Add("Value", typeof<int>) |> ignore
     dataTable.PrimaryKey <- [| dataTable.Columns.[0] |]
-    for _count = 1 to numberOfRows do
+    for _count = 1 to numberOfRows |> int do
         dataTable.Rows.Add() |> ignore
     dataTable.AcceptChanges()
 
@@ -289,6 +289,6 @@ let ``DataTable serialize deserialize auto increment column with changed row`` (
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
 
-    Assert.Equal(dataTable.TableName, deserializedDataTable.TableName)
+    Assert.Equal(dataTable, deserializedDataTable, dataTableComparer)
 
 
