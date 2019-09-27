@@ -1,6 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.0.0-rc.1</Version>
+    <Authors>Ales Doganoc</Authors>
+    <Company></Company>
+    <RepositoryUrl>https://github.com/AlesDo/DataSetConverters</RepositoryUrl>
+    <Description>DataSet converters for Json.NET that provide full serialization for DataSets and DataTables. They preserve all the state like the serialization built in the standard .NET serializers. This enables the use of JSON serialization for all scenarios where DataSets or DataTables are used.</Description>
+    <Copyright>Copyright © Ales Doganoc 2019</Copyright>
+    <PackageTags>json dataset serialization</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PropertyCollectionExtensions.fs" />

@@ -1,6 +1,6 @@
 # [Json.NET](https://github.com/JamesNK/Newtonsoft.Json) DataSet [converters](https://www.newtonsoft.com/json/help/html/SerializationSettings.htm#Converters)
 
-[![Build Status](https://anarchic.visualstudio.com/Json%20.NET%20DataSet%20Converters/_apis/build/status/AlesDo.DataSetConverters?branchName=master)](https://anarchic.visualstudio.com/Json%20.NET%20DataSet%20Converters/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/AlesDo/Json.NET%20DataSet%20Converters/_apis/build/status/AlesDo.DataSetConverters?branchName=master)](https://dev.azure.com/AlesDo/Json.NET%20DataSet%20Converters/_build/latest?definitionId=1&branchName=master)
 
 DataSet [converters](https://www.newtonsoft.com/json/help/html/SerializationSettings.htm#Converters) for [Json.NET](https://github.com/JamesNK/Newtonsoft.Json) that provide full serialization for [DataSet](https://docs.microsoft.com/en-us/dotnet/api/system.data.dataset?view=netstandard-2.0)s and [DataTable](https://docs.microsoft.com/en-us/dotnet/api/system.data.datatable?view=netstandard-2.0)s. 
 They preserve all the state like the serialization built in the standard .NET serializers. 
