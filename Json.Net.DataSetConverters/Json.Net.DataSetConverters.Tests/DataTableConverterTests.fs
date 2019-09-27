@@ -21,7 +21,7 @@ let ``Empty table serialize deserialize`` () =
 
     Assert.Equal(dataTable.TableName, deserializedDataTable.TableName)
     
-[<Property>]
+[<Property(Arbitrary =[| typeof<MyGenerators> |])>]
 let ``DataTable serialize deserialize validate TableName`` (tableName: string) = 
     let dataTable = new DataTable(tableName)
 
