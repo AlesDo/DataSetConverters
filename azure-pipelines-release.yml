@@ -17,7 +17,7 @@ steps:
   inputs:
     command: 'build'
     projects: 'Json.Net.DataSetConverters/Json.Net.DataSetConverters/Json.Net.DataSetConverters.fsproj'
-    arguments: '--configuration $(buildConfiguration) -p:Version:$(packageVersion) -p:FileVersion:$(fileVersion)'
+    arguments: '--configuration $(buildConfiguration) -p:Version=$(packageVersion) -p:FileVersion=$(fileVersion)'
 
 - task: DotNetCoreCLI@2
   inputs:
