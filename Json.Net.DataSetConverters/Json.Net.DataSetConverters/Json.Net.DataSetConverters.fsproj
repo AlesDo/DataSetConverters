@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0-rc.1</Version>
     <Authors>Ales Doganoc</Authors>
     <Company></Company>
@@ -10,6 +11,15 @@
     <Copyright>Copyright © Ales Doganoc 2019</Copyright>
     <PackageTags>json dataset serialization</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PropertyCollectionExtensions.fs" />
@@ -31,5 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19351-01" PrivateAssets="All" />
   </ItemGroup>
 </Project>
