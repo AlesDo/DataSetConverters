@@ -3,9 +3,10 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+trigger: none
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/*.sln'
@@ -23,16 +24,22 @@ steps:
     command: 'test'
     projects: '$(solution)'
 
-- task: PublishSymbols@2
-  inputs:
-    SearchPattern: '**/bin/**/*.pdb'
-    PublishSymbols: false
-
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: 'Json.Net.DataSetConverters/Json.Net.DataSetConverters/Json.Net.DataSetConverters.fsproj'
     nobuild: true
     includesymbols: true
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'packageVersion'
+
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 
+    checkLatest: true
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet.org'
+    allowPackageConflicts: true
