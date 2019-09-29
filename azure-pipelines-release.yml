@@ -30,12 +30,10 @@ steps:
     packagesToPack: 'Json.Net.DataSetConverters/Json.Net.DataSetConverters/Json.Net.DataSetConverters.fsproj'
     nobuild: true
     includesymbols: true
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'packageVersion'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.*nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'afd2e14a-bd71-40ec-85a3-dcffb34eca90'
