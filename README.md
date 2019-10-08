@@ -14,7 +14,7 @@ The idea for this came of a need to modernize old WCF and ASMX web services to m
 
 ## How to use
 
-The simplest way to use the converters is to add them to the json serializer default settings. This way they will override the built in serializers and we always be used.
+The simplest way to use the converters is to add them to the json serializer default settings. This way they will override the built in converters and will always be used.
 
 ```csharp
 JsonConvert.DefaultSettings = () => new JsonSerializerSettings()
@@ -27,18 +27,30 @@ If you are using them only in specific cases you can specify the converter to us
 
 ```csharp
 string serializedDataSet = JsonConvert.SerializeObject(dataSet, new Json.Net.DataSetConverters.DataSetConverter());
-DataSet deserialiedDataSet = JsonConvert.DeserializeObject<DataSet>(serializedDataSet, new Json.Net.DataSetConverters.DataSetConverter());
+DataSet deserializedDataSet = JsonConvert.DeserializeObject<DataSet>(serializedDataSet, new Json.Net.DataSetConverters.DataSetConverter());
 
 string serializedDataTable = JsonConvert.SerializeObject(dataTable, new Json.Net.DataSetConverters.DataTableConverter());
-DataSet deserialiedDataTable = JsonConvert.DeserializeObject<DataTable>(serializedDataTable, new Json.Net.DataSetConverters.DataTableConverter());
+DataSet deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(serializedDataTable, new Json.Net.DataSetConverters.DataTableConverter());
 ```
 
 ### In ASP.NET Core
 
 To use the converters in an ASP.NET Core applications you need to set the converters in Startup file of the application when you add MVC services.
 
+### ASP.NET Core 2.0
+
 ```csharp
 services.AddMvc().AddJsonOptions((jsonOptions) => 
+{
+   jsonOptions.SerializerSettings.Converters.Add(new Json.Net.DataSetConverters.DataTableConverter());
+   jsonOptions.SerializerSettings.Converters.Add(new Json.Net.DataSetConverters.DataSetConverter());
+});
+```
+
+### ASP.NET Core 3.0
+
+```csharp
+services.AddControllers().AddNewtonsoftJson((jsonOptions) => 
 {
    jsonOptions.SerializerSettings.Converters.Add(new Json.Net.DataSetConverters.DataTableConverter());
    jsonOptions.SerializerSettings.Converters.Add(new Json.Net.DataSetConverters.DataSetConverter());
