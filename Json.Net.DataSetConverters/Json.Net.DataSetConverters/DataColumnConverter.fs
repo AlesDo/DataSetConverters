@@ -94,7 +94,7 @@ type DataColumnConverter() =
         writer.WritePropertyToOutput(serializer, resolver, Caption, dataColumn.Caption)
         writer.WritePropertyToOutput(serializer, resolver, ColumnMapping, dataColumn.ColumnMapping)
         writer.WritePropertyToOutput(serializer, resolver, ColumnName, dataColumn.ColumnName)
-        writer.WritePropertyToOutput(serializer, resolver, DataType, dataColumn.DataType)
+        writer.WritePropertyToOutput(serializer, resolver, DataType, dataColumn.DataType.FullName)
         writer.WritePropertyToOutput(serializer, resolver, DateTimeMode, dataColumn.DateTimeMode)
         writer.WritePropertyToOutput(serializer, resolver, DefaultValue, dataColumn.DefaultValue)
         writer.WritePropertyToOutput(serializer, resolver, Expression, dataColumn.Expression)
