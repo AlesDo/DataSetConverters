@@ -57,6 +57,8 @@ services.AddControllers().AddNewtonsoftJson((jsonOptions) =>
 });
 ```
 
+Check also the [samples solution](https://github.com/AlesDo/DataSetConverters/tree/master/Json.Net.DataSetConverters.Samples) for a working example of a Windows Forms application taking to an ASP.NET Core WebApi.
+
 ## Performance
 
 The first measurements show that the serialization speed is better than the `BinaryFormater` and `DataContractSerializer` serialization.
