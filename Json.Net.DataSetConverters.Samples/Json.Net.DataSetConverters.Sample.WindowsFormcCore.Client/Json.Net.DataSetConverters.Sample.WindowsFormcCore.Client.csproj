@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Form1.cs" Link="Form1.cs" />
+    <Compile Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Form1.Designer.cs" Link="Form1.Designer.cs" />
+    <Compile Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Form1.resx" Link="Form1.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Json.Net.DataSetConverters" Version="1.0.0-rc.2" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+  </ItemGroup>
+
+</Project>
