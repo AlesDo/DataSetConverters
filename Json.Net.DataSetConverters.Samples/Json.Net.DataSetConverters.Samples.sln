@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json.Net.DataSetConverters.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.Net.DataSetConverters.Sample.WindowsForms.Client", "Json.Net.DataSetConverters.Sample.WindowsForms.Client\Json.Net.DataSetConverters.Sample.WindowsForms.Client.csproj", "{FA147D57-8741-4076-8A1C-D303FFF9D318}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client", "Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client\Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client.csproj", "{E07173D8-F85D-4C2F-AF7B-63D984C199E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client", "Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client\Json.Net.DataSetConverters.Sample.WindowsFormcCore.Client.csproj", "{E07173D8-F85D-4C2F-AF7B-63D984C199E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,7 @@ Global
 		{B22B5A2F-237F-460B-852E-A2EA02EB8978}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B22B5A2F-237F-460B-852E-A2EA02EB8978}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA147D57-8741-4076-8A1C-D303FFF9D318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA147D57-8741-4076-8A1C-D303FFF9D318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA147D57-8741-4076-8A1C-D303FFF9D318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA147D57-8741-4076-8A1C-D303FFF9D318}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E07173D8-F85D-4C2F-AF7B-63D984C199E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
