@@ -295,3 +295,4 @@ let ``DataSet serialize deserialize typed dataset with multiple tables with rela
 
    Assert.NotNull(deserializedDataSet)
    Assert.Equal(typedDataSet, deserializedDataSet, dataSetComparer)
+
