@@ -5,8 +5,9 @@
   <ItemGroup>
     <Compile Include="Comparers.fs" />
     <Compile Include="FsCheckGenerators.fs" />
-    <Compile Include="DataSetConverterTests.fs" />
+    <Compile Include="PropertyCollectionConverterTests.fs" />
     <Compile Include="DataTableConverterTests.fs" />
+    <Compile Include="DataSetConverterTests.fs" />
     <Compile Include="ExtensionTests.fs" />
   </ItemGroup>
   <ItemGroup>

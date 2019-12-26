@@ -1,4 +1,4 @@
-namespace Json.Net.DataSetConverters
+﻿namespace Json.Net.DataSetConverters
 open System
 open System.Globalization
 open Newtonsoft.Json
@@ -50,6 +50,7 @@ module JsonSerializationExtensions =
         member this.ReadPropertyFromOutput<'T>(serializer: JsonSerializer, propertyName: string, objectName: string, existingValue: obj, converter: JsonConverter) =
             this.ReadAndAssert()
             this.ValidatePropertyName(propertyName, objectName)
+            this.ReadAndAssert()
             converter.ReadJson(this, typedefof<'T>, existingValue, serializer) :?> 'T
 
         member private this.DowncastToIJsonLineInfo =

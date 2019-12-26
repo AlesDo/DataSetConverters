@@ -21,6 +21,7 @@ type PropertyCollectionConverter() =
         propertyCollection.Add(
             reader.ReadPropertyFromOutput(serializer, Key, ObjectName),
             reader.ReadPropertyFromOutput(serializer, Value, ObjectName))
+        reader.ReadAndAssert()
         reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
         reader.ReadAndAssert()
 
@@ -39,8 +40,10 @@ type PropertyCollectionConverter() =
         if reader.TokenType = JsonToken.Null then
             null
         else
-            let propertyCollection = existingValue :?> PropertyCollection
-            reader.ReadAndAssert()
+            let propertyCollection = 
+                match existingValue with
+                    | null -> new PropertyCollection() 
+                    | _ -> existingValue :?> PropertyCollection
             reader.ValidateJsonToken(JsonToken.StartArray, ObjectName)
             reader.ReadAndAssert()
             while reader.TokenType <> JsonToken.EndArray do
