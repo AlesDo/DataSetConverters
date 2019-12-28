@@ -41,11 +41,18 @@ module JsonSerializationExtensions =
             this.ReadAndAssert()
             serializer.Deserialize<'T>(this)
 
+        member this.ReadRowValuePropertyFromOutput(serializer: JsonSerializer, propertyName: string, propertyType: Type, objectName: string) =
+            let propertyValue = this.ReadPropertyFromOutput(serializer, propertyName, propertyType, objectName)
+            if isNull(propertyValue) then DBNull.Value :> obj else propertyValue
+
         member this.ReadPropertyFromOutput(serializer: JsonSerializer, propertyName: string, propertyType: Type, objectName: string) =
             this.ReadAndAssert()
             this.ValidatePropertyName(propertyName, objectName)
             this.ReadAndAssert()
-            if this.TokenType = JsonToken.Null then DBNull.Value :> obj else serializer.Deserialize(this, propertyType)
+            if this.TokenType = JsonToken.Null then
+                null
+            else
+                serializer.Deserialize(this, propertyType)
 
         member this.ReadPropertyFromOutput<'T>(serializer: JsonSerializer, propertyName: string, objectName: string, existingValue: obj, converter: JsonConverter) =
             this.ReadAndAssert()
@@ -71,5 +78,6 @@ module JsonSerializationExtensions =
         member this.WritePropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyValue: obj, converter: JsonConverter) =
             this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
             converter.WriteJson(this, propertyValue, serializer)
+
 
         

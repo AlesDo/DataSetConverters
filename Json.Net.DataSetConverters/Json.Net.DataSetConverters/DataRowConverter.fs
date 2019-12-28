@@ -20,10 +20,10 @@ type DataRowConverter(dataTable: DataTable) =
     static let readColumnValues(reader: JsonReader, serializer: JsonSerializer, dataRow: DataRow, dataTable: DataTable) = 
         for dataColumn in dataTable.Columns do
             if dataRow.RowState = DataRowState.Detached then
-                dataRow.[dataColumn] <- reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
+                dataRow.[dataColumn] <- reader.ReadRowValuePropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
             else
                 if not dataColumn.ReadOnly then
-                    dataRow.[dataColumn] <- reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
+                    dataRow.[dataColumn] <- reader.ReadRowValuePropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
                 else
                     reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName) |> ignore
   
