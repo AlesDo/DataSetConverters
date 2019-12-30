@@ -42,10 +42,10 @@ module JsonSerializationExtensions =
             serializer.Deserialize<'T>(this)
 
         member this.ReadRowValuePropertyFromOutput(serializer: JsonSerializer, propertyName: string, propertyType: Type, objectName: string) =
-            let propertyValue = this.ReadPropertyFromOutput(serializer, propertyName, propertyType, objectName)
+            let propertyValue = this.ReadTypedPropertyFromOutput(serializer, propertyName, propertyType, objectName)
             if isNull(propertyValue) then DBNull.Value :> obj else propertyValue
 
-        member this.ReadPropertyFromOutput(serializer: JsonSerializer, propertyName: string, propertyType: Type, objectName: string) =
+        member this.ReadTypedPropertyFromOutput(serializer: JsonSerializer, propertyName: string, propertyType: Type, objectName: string) =
             this.ReadAndAssert()
             this.ValidatePropertyName(propertyName, objectName)
             this.ReadAndAssert()
@@ -72,12 +72,22 @@ module JsonSerializationExtensions =
     type JsonWriter with
 
         member this.WritePropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyValue: obj) =
-            this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
-            serializer.Serialize(this, propertyValue)
+            if serializer.NullValueHandling <> NullValueHandling.Ignore || not(isNull(propertyValue)) then
+                this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
+                serializer.Serialize(this, propertyValue)
 
         member this.WritePropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyValue: obj, converter: JsonConverter) =
-            this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
-            converter.WriteJson(this, propertyValue, serializer)
+            if serializer.NullValueHandling <> NullValueHandling.Ignore || not(isNull(propertyValue)) then
+                this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
+                converter.WriteJson(this, propertyValue, serializer)
 
+        member this.WriteTypedPropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyType: Type, propertyValue: obj) =
+            if serializer.NullValueHandling <> NullValueHandling.Ignore || not(isNull(propertyValue)) then
+                this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
+                match propertyType with
+                | t when t = typeof<decimal> -> serializer.Serialize(this, (propertyValue :?> decimal).ToString("F28", CultureInfo.InvariantCulture))
+                | _ -> serializer.Serialize(this, propertyValue)
 
-        
+        member this.WriteRowValuePropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyType: Type, propertyValue: obj) =
+            let serializeValue = if propertyValue = (DBNull.Value :> obj) then null else propertyValue
+            this.WriteTypedPropertyToOutput(serializer, contractResolver, propertyName, propertyType, serializeValue)

@@ -25,16 +25,12 @@ type DataRowConverter(dataTable: DataTable) =
                 if not dataColumn.ReadOnly then
                     dataRow.[dataColumn] <- reader.ReadRowValuePropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName)
                 else
-                    reader.ReadPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName) |> ignore
+                    reader.ReadTypedPropertyFromOutput(serializer, dataColumn.ColumnName, dataColumn.DataType, ObjectName) |> ignore
   
 
     static let writeColumnValue(writer: JsonWriter, serializer: JsonSerializer, resolver: DefaultContractResolver, dataRow: DataRow, dataColumn: DataColumn, dataRowVersion: DataRowVersion) =
         let columnValue = dataRow.[dataColumn, dataRowVersion]
-        if serializer.NullValueHandling <> NullValueHandling.Ignore || (columnValue <> (DBNull.Value :> obj) && (not(isNull(columnValue)))) then
-            writer.WritePropertyName(match resolver with | null -> dataColumn.ColumnName | _ -> resolver.GetResolvedPropertyName(dataColumn.ColumnName))
-            match dataColumn.DataType with
-            | t when t = typeof<decimal> -> serializer.Serialize(writer, (columnValue :?> decimal).ToString("F28", CultureInfo.InvariantCulture))
-            | _ -> serializer.Serialize(writer, columnValue)
+        writer.WriteRowValuePropertyToOutput(serializer, resolver, dataColumn.ColumnName, dataColumn.DataType, columnValue)
 
     override this.CanConvert(objectType) =
         typeof<DataRow>.IsAssignableFrom(objectType)
