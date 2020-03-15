@@ -5,6 +5,7 @@ open JsonSerializationExtensions
 open System.Collections
 open Newtonsoft.Json.Serialization
 open System
+open System.Reflection
 
 type PropertyCollectionConverter() =
     inherit JsonConverter()
@@ -19,12 +20,20 @@ type PropertyCollectionConverter() =
     static let Value = "Value"
     [<Literal>]
     static let ValueType = "ValueType"
+
+    static let resolveType(assemblyQualifiedName: string) =
+        let typeName = assemblyQualifiedName.Substring(0, assemblyQualifiedName.IndexOf(','));
+        let resolvedType = Type.GetType(typeName)
+        if isNull(resolvedType) then
+            Type.GetType(assemblyQualifiedName)
+        else
+            resolvedType
     
     static let readExtendedProperty(reader: JsonReader, serializer: JsonSerializer, propertyCollection: PropertyCollection) = 
         reader.ValidateJsonToken(JsonToken.StartObject, ObjectName)
         propertyCollection.Add(
-            reader.ReadTypedPropertyFromOutput(serializer, Key, reader.ReadPropertyFromOutput(serializer, KeyType, ObjectName), ObjectName),
-            reader.ReadTypedPropertyFromOutput(serializer, Value, reader.ReadPropertyFromOutput(serializer, ValueType, ObjectName), ObjectName))
+            reader.ReadTypedPropertyFromOutput(serializer, Key, resolveType(reader.ReadPropertyFromOutput(serializer, KeyType, ObjectName)), ObjectName),
+            reader.ReadTypedPropertyFromOutput(serializer, Value, resolveType(reader.ReadPropertyFromOutput(serializer, ValueType, ObjectName)), ObjectName))
         reader.ReadAndAssert()
         reader.ValidateJsonToken(JsonToken.EndObject, ObjectName)
         reader.ReadAndAssert()
@@ -32,13 +41,13 @@ type PropertyCollectionConverter() =
     static let writeExtendedProperty(writer: JsonWriter, serializer: JsonSerializer, resolver: DefaultContractResolver, extendedProperty: DictionaryEntry) =
         writer.WriteStartObject()
         let keyType = if isNull(extendedProperty.Key) then null else extendedProperty.Key.GetType()
-        writer.WritePropertyToOutput(serializer, resolver, KeyType, if isNull(keyType) then null else keyType.FullName)
+        writer.WritePropertyToOutput(serializer, resolver, KeyType, if isNull(keyType) then null else keyType.AssemblyQualifiedName)
         if isNull(keyType) then
             writer.WritePropertyToOutput(serializer, resolver, Key, extendedProperty.Key)
         else
             writer.WriteTypedPropertyToOutput(serializer, resolver, Key, keyType, extendedProperty.Key)
         let valueType = if isNull(extendedProperty.Value) then null else extendedProperty.Value.GetType()
-        writer.WritePropertyToOutput(serializer, resolver, ValueType, if isNull(valueType) then null else valueType.FullName)
+        writer.WritePropertyToOutput(serializer, resolver, ValueType, if isNull(valueType) then null else valueType.AssemblyQualifiedName)
         if isNull(valueType) then
             writer.WritePropertyToOutput(serializer, resolver, Value, extendedProperty.Value)
         else

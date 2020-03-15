@@ -7,6 +7,7 @@ open Json.Net.DataSetConverters
 open FsCheck.Xunit
 open FsCheckGenerators
 open System
+open Bogus
 
 [<Fact>]
 let ``Empty property collection serialize deserialize`` () =
@@ -94,3 +95,15 @@ let ``Property collection with date keys and values serialize deserialize`` (val
 
     Assert.NotNull(deserializedPropertyCollection)
     values |> Seq.iter (fun value -> Assert.Equal(value, deserializedPropertyCollection.[value] :?> DateTime))
+
+[<Property(Arbitrary =[| typeof<MyGenerators> |])>]
+let ``Property collection with object keys and values serialize deserialize`` (values: TestClass[]) =
+    let propertyCollection = new PropertyCollection()
+    values |> Seq.iter (fun value -> if not(propertyCollection.ContainsKey(value)) then propertyCollection.Add(value.Key, value))
+
+    let jsonPropertyCollection = JsonConvert.SerializeObject(propertyCollection, PropertyCollectionConverter())
+    let deserializedPropertyCollection = JsonConvert.DeserializeObject<PropertyCollection>(jsonPropertyCollection, PropertyCollectionConverter())
+
+    Assert.NotNull(deserializedPropertyCollection)
+    values |> Seq.iter (fun value -> Assert.Equal(value.Key, (deserializedPropertyCollection.[value.Key] :?> TestClass).Key))
+    values |> Seq.iter (fun value -> Assert.Equal(value.Value, (deserializedPropertyCollection.[value.Key] :?> TestClass).Value))

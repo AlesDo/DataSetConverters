@@ -4,9 +4,14 @@ open FsCheck
 open System.Text.RegularExpressions
 open System.Data
 open System
+open Bogus
 
 let filter (testString: string) =
     testString.Length > 10
+
+type TestClass() =
+    member val public Key: int = 0 with get, set
+    member val public Value: string = null with get,set
 
 type MyGenerators =
     static member String() = (Arb.Default.String() |> Arb.filter (fun s -> match s with | null -> false | _ -> Regex.Match(s, "^[\w\d]+$").Success))
@@ -16,6 +21,14 @@ type MyGenerators =
                                  return new DataColumn(columnName, dataType)}
       Arb.fromGenShrink (genDataColumn, fun  s -> Seq.empty)
     static member Char() = (Arb.Default.Char() |> Arb.filter (fun c -> not (Char.IsControl(c))))
+    static member TestClass() =
+        let testClassFaker =
+            Faker<TestClass>()
+                .RuleFor<int>((fun testClass -> testClass.Key), fun (f:Faker) -> f.UniqueIndex)
+                .RuleFor<string>((fun testClass -> testClass.Value), fun (f:Faker) -> f.Random.String())
+        let genTestClass = gen { return testClassFaker.Generate() }
+        Arb.fromGenShrink (genTestClass, fun  s -> Seq.empty)
 
 type PrefixGenerators =
     static member String() = (Arb.Default.String() |> Arb.filter (fun s -> match s with | null -> false | _ -> Regex.Match(s, "^[a-zA-Z]+\z").Success))
+
