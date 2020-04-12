@@ -65,7 +65,7 @@ type DataColumnConverter() =
             dataColumn.Caption <- reader.ReadPropertyFromOutput(serializer, Caption, ObjectName)
             dataColumn.ColumnMapping <- reader.ReadPropertyFromOutput(serializer, ColumnMapping, ObjectName)
             dataColumn.ColumnName <- reader.ReadPropertyFromOutput(serializer, ColumnName, ObjectName)
-            dataColumn.DataType <- reader.ReadPropertyFromOutput(serializer, DataType, ObjectName)
+            dataColumn.DataType <- resolveType(reader.ReadPropertyFromOutput(serializer, DataType, ObjectName))
             dataColumn.DateTimeMode <- reader.ReadPropertyFromOutput(serializer, DateTimeMode, ObjectName)
             if dataColumn.AutoIncrement then
                reader.ReadPropertyFromOutput(serializer, DefaultValue, ObjectName) |> ignore
@@ -94,7 +94,7 @@ type DataColumnConverter() =
         writer.WritePropertyToOutput(serializer, resolver, Caption, dataColumn.Caption)
         writer.WritePropertyToOutput(serializer, resolver, ColumnMapping, dataColumn.ColumnMapping)
         writer.WritePropertyToOutput(serializer, resolver, ColumnName, dataColumn.ColumnName)
-        writer.WritePropertyToOutput(serializer, resolver, DataType, dataColumn.DataType.FullName)
+        writer.WritePropertyToOutput(serializer, resolver, DataType, dataColumn.DataType.AssemblyQualifiedName)
         writer.WritePropertyToOutput(serializer, resolver, DateTimeMode, dataColumn.DateTimeMode)
         writer.WritePropertyToOutput(serializer, resolver, DefaultValue, dataColumn.DefaultValue)
         writer.WritePropertyToOutput(serializer, resolver, Expression, dataColumn.Expression)

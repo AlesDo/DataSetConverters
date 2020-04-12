@@ -5,7 +5,6 @@ open JsonSerializationExtensions
 open System.Collections
 open Newtonsoft.Json.Serialization
 open System
-open System.Reflection
 
 type PropertyCollectionConverter() =
     inherit JsonConverter()
@@ -20,14 +19,6 @@ type PropertyCollectionConverter() =
     static let Value = "Value"
     [<Literal>]
     static let ValueType = "ValueType"
-
-    static let resolveType(assemblyQualifiedName: string) =
-        let typeName = assemblyQualifiedName.Substring(0, assemblyQualifiedName.IndexOf(','));
-        let resolvedType = Type.GetType(typeName)
-        if isNull(resolvedType) then
-            Type.GetType(assemblyQualifiedName)
-        else
-            resolvedType
     
     static let readExtendedProperty(reader: JsonReader, serializer: JsonSerializer, propertyCollection: PropertyCollection) = 
         reader.ValidateJsonToken(JsonToken.StartObject, ObjectName)

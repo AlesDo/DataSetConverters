@@ -11,6 +11,7 @@ open System.Globalization
 open System.Linq
 open FsCheckGenerators
 open Comparers
+open Newtonsoft.Json.Linq
 
 [<Fact>]
 let ``Empty table serialize deserialize`` () =
@@ -230,8 +231,8 @@ let ``DataTable serialize deserialize rows TimeSpan values`` (timeSpan1: TimeSpa
 [<Property>]
 let ``DataTable serialize deserialize rows byte[] values`` (byteArray1: byte[], byteArray2: byte[] option) =
    let dataTable = new DataTable()
-   dataTable.Columns.Add("timeSpan1", typeof<byte array>) |> ignore
-   dataTable.Columns.Add("TimeSpan2", typeof<byte array>) |> ignore
+   dataTable.Columns.Add("byteArray1", typeof<byte array>) |> ignore
+   dataTable.Columns.Add("byteArray2", typeof<byte array>) |> ignore
 
    let columnValues: obj [] = [| byteArray1; optionToDbNull byteArray2 |]
    dataTable.LoadDataRow(columnValues, LoadOption.Upsert) |> ignore
@@ -262,19 +263,6 @@ let ``DataTable serialize deserialize rows preserves row state and original valu
    Assert.Equal("string2", deserializedDataTable.Rows.[1].["string2", DataRowVersion.Original] :?> string)
 
 [<Property>]
-let ``TypedDataTable Column`` (byteArray1: byte[], byteArray2: byte[] option) =
-   let dataTable = new DataTable()
-   dataTable.Columns.Add("timeSpan1", typeof<byte array>) |> ignore
-   dataTable.Columns.Add("TimeSpan2", typeof<byte array>) |> ignore
-
-   let columnValues: obj [] = [| byteArray1; optionToDbNull byteArray2 |]
-   dataTable.LoadDataRow(columnValues, LoadOption.Upsert) |> ignore
-   let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
-   let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
-
-   Assert.Equal<obj>(columnValues :> seq<obj>, deserializedDataTable.Rows.Item(0).ItemArray :> seq<obj>, arrayEqualityComparer)
-
-[<Property>]
 let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: uint16) = 
     let dataTable = new DataTable()
     dataTable.Columns.Add(new DataColumn (ColumnName = "Id", DataType = typeof<int>, AutoIncrement = true, Unique = true, ReadOnly = true))
@@ -291,4 +279,32 @@ let ``DataTable serialize deserialize auto increment column with changed row`` (
 
     Assert.Equal(dataTable, deserializedDataTable, dataTableComparer)
 
+[<Property(Arbitrary =[| typeof<MyGenerators> |])>]
+let ``DataTable serialize deserialize object column with known object type`` (value1: TestClass, value2: TestClass) =
+   let dataTable = new DataTable()
+   dataTable.Columns.Add("objectValue1", typeof<TestClass>) |> ignore
+   dataTable.Columns.Add("objectValue2", typeof<TestClass>) |> ignore
 
+   let columnValues: obj [] = [| value1; value2; |]
+   dataTable.LoadDataRow(columnValues, LoadOption.Upsert) |> ignore
+   let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
+   let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
+
+   Assert.Equal<obj>(columnValues :> seq<obj>, deserializedDataTable.Rows.Item(0).ItemArray :> seq<obj>, objectEqualityComparer)
+
+[<Property(Arbitrary =[| typeof<MyGenerators> |])>]
+let ``DataTable serialize deserialize object column with object type`` (value1: TestClass, value2: TestClass) =
+   let dataTable = new DataTable()
+   dataTable.Columns.Add("objectValue1", typeof<Object>) |> ignore
+   dataTable.Columns.Add("objectValue2", typeof<Object>) |> ignore
+
+   let columnValues: TestClass[] = [| value1; value2; |]
+   dataTable.LoadDataRow(Seq.toArray<obj>(columnValues |> Seq.cast<obj>), LoadOption.Upsert) |> ignore
+   let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
+   let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
+
+   Assert.Equal(columnValues.[0].Key, (deserializedDataTable.Rows.Item(0).ItemArray.[0] :?> JObject).Value<int>("Key"))
+   Assert.Equal(columnValues.[0].Value, (deserializedDataTable.Rows.Item(0).ItemArray.[0] :?> JObject).Value<string>("Value"))
+   Assert.Equal(columnValues.[1].Key, (deserializedDataTable.Rows.Item(0).ItemArray.[1] :?> JObject).Value<int>("Key"))
+   Assert.Equal(columnValues.[1].Value, (deserializedDataTable.Rows.Item(0).ItemArray.[1] :?> JObject).Value<string>("Value"))
+   

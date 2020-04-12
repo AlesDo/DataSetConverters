@@ -12,6 +12,8 @@ let filter (testString: string) =
 type TestClass() =
     member val public Key: int = 0 with get, set
     member val public Value: string = null with get,set
+    override this.Equals(obj: Object) =
+        if obj :? TestClass then (obj :?> TestClass).Value = this.Value && (obj :?> TestClass).Key = this.Key else false
 
 type MyGenerators =
     static member String() = (Arb.Default.String() |> Arb.filter (fun s -> match s with | null -> false | _ -> Regex.Match(s, "^[\w\d]+$").Success))

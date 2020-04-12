@@ -1,4 +1,5 @@
 ﻿namespace Json.Net.DataSetConverters
+
 open System
 open System.Globalization
 open Newtonsoft.Json
@@ -19,6 +20,14 @@ module JsonSerializationExtensions =
             mutableMessage <- mutableMessage + String.Format(", line {0}, position {1}", CultureInfo.InvariantCulture, lineInfo.LineNumber, lineInfo.LinePosition)
         mutableMessage <- mutableMessage + "."
         mutableMessage
+
+    let resolveType(assemblyQualifiedName: string) =
+        let typeName = assemblyQualifiedName.Substring(0, assemblyQualifiedName.IndexOf(','));
+        let resolvedType = Type.GetType(typeName)
+        if isNull(resolvedType) then
+            Type.GetType(assemblyQualifiedName)
+        else
+            resolvedType
 
     type JsonReader with
 
