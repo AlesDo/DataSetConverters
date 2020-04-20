@@ -5,6 +5,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
+   
+  <ItemGroup>
+    <PackageReference Include="Json.Net.DataSetConverters" Version="1.0.0-rc.2" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Form1.cs" Link="Form1.cs" />
@@ -14,11 +19,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\Json.Net.DataSetConverters.Sample.WindowsForms.Client\Form1.resx" Link="Form1.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Json.Net.DataSetConverters" Version="1.0.0-rc.2" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
 </Project>
