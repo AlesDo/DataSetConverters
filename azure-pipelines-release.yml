@@ -9,7 +9,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/Json.Net.DataSetConverters.sln'
   buildConfiguration: 'Release'
 
 steps:
