@@ -14,6 +14,9 @@ type TestClass() =
     member val public Value: string = null with get,set
     override this.Equals(obj: Object) =
         if obj :? TestClass then (obj :?> TestClass).Value = this.Value && (obj :?> TestClass).Key = this.Key else false
+    override this.GetHashCode() =
+        let keyHashCode = this.Key.GetHashCode()
+        if isNull(this.Value) then keyHashCode else keyHashCode ||| this.Value.GetHashCode()
 
 type MyGenerators =
     static member String() = (Arb.Default.String() |> Arb.filter (fun s -> match s with | null -> false | _ -> Regex.Match(s, "^[\w\d]+$").Success))

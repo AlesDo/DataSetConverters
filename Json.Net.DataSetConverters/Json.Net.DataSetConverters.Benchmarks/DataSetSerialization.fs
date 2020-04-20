@@ -11,8 +11,9 @@ open Newtonsoft.Json
 open Json.Net.DataSetConverters
 open DataSetGenerator
 open ExporterConfig
+open BenchmarkDotNet.Jobs
 
-[<InProcess; MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
+[<SimpleJob(RuntimeMoniker.NetCoreApp31); MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
 type DataSetSerialization() =
     let mutable dataSet: TestDataSet = null
 
@@ -26,18 +27,18 @@ type DataSetSerialization() =
         dataSet <- generateTestDataSet(this.DataSetSize)
         if (this.WithChanges) then addChanges(dataSet)
 
-    [<Benchmark>]
+    [<Benchmark(Description = "Json.NET\r\rDataSet Converters")>]
     member this.JsonDotNetDataSetConverters() =
-        JsonConvert.SerializeObject(dataSet, DataSetConverter()) |> ignore
+       JsonConvert.SerializeObject(dataSet, DataSetConverter()) |> ignore
 
-    [<Benchmark>]
+    [<Benchmark(Description = "Binary\r\nFormatter")>]
     member this.BinaryFormatter() =
         let binaryFormatter = new BinaryFormatter()
         use memoryStream = new MemoryStream()
         memoryStream.Position <- 0L
         binaryFormatter.Serialize(memoryStream, dataSet)
 
-    [<Benchmark>]
+    [<Benchmark(Description = "DataContract\r\nSerializer")>]
     member this.DataContractSerializer() =
         let dataContractSerializer = new DataContractSerializer(typeof<TestDataSet>)
         use memoryStream = new MemoryStream()

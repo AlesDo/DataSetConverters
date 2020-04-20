@@ -9,8 +9,9 @@ open Newtonsoft.Json
 open Json.Net.DataSetConverters
 open DataSetGenerator
 open ExporterConfig
+open BenchmarkDotNet.Jobs
 
-[<InProcess; MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
+[<SimpleJob(RuntimeMoniker.NetCoreApp31); MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
 type DataSetDeSerialization() =
 
     let binaryFormatterDataSet = new MemoryStream()
@@ -46,17 +47,17 @@ type DataSetDeSerialization() =
         binaryFormatterDataSet.Close()
         dataContractSerializerDataSet.Close()
 
-    [<Benchmark>]
+    [<Benchmark(Description = "Json.NET\r\rDataSetConverters")>]
     member this.JsonDotNetDataSetConverters() =
         JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter()) |> ignore
 
-    [<Benchmark>]
+    [<Benchmark(Description = "Binary\r\nFormatter")>]
     member this.BinaryFormatter() =
         let binaryFormatter = new BinaryFormatter()
         binaryFormatterDataSet.Position <- 0L
         binaryFormatter.Deserialize(binaryFormatterDataSet) |> ignore
 
-    [<Benchmark>]
+    [<Benchmark(Description = "DataContract\r\nSerializer")>]
     member this.DataContractSerializer() =
         let dataContractSerializer = new DataContractSerializer(typeof<TestDataSet>)
         dataContractSerializerDataSet.Position <- 0L

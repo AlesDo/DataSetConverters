@@ -3,9 +3,14 @@
 open Json.Net.DataSetConverters.Tests.TypedDataSets
 open Bogus 
 open System
+open Json.Net.DataSetConverters.Benchmarks
 
 let generateTestDataSet(numberOfMainTableRows: int) =
     let testDataSet = new TestDataSet()
+    let userGenerator =
+        Faker<User>()
+            .CustomInstantiator(fun f -> User(f.Name.FirstName(), f.Name.LastName()))
+    testDataSet.ExtendedProperties.Add("Owner", userGenerator.Generate())
     let testDataTable1RowGenerator =
        Faker<TestDataSet.DataTable1Row>()
            .CustomInstantiator(fun _f -> testDataSet.DataTable1.NewDataTable1Row())
@@ -19,7 +24,7 @@ let generateTestDataSet(numberOfMainTableRows: int) =
             .CustomInstantiator(fun _f -> testDataSet.DataTable2.NewDataTable2Row())
             .RuleFor<string>((fun row -> row.Name), fun (f:Faker) -> f.Name.FullName())
             .RuleFor<bool>((fun row -> row.BooleanValue), fun (f:Faker) -> f.Random.Bool())
-            //.RuleFor<obj>((fun row -> row.ObjectValue), fun (f:Faker) -> f.Person.FullName)
+            .RuleFor<obj>((fun row -> row.ObjectValue), userGenerator.Generate() :> obj )
     let testDataTable3RowGenerator =
         Faker<TestDataSet.DataTable3Row>()
             .CustomInstantiator(fun _f -> testDataSet.DataTable3.NewDataTable3Row())

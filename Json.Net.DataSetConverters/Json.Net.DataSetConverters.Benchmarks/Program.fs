@@ -3,6 +3,7 @@
 open System
 open BenchmarkDotNet.Running
 open Json.Net.DataSetConverters.Benchmarks
+open BenchmarkDotNet.Configs
 
 [<EntryPoint>]
 let main argv =

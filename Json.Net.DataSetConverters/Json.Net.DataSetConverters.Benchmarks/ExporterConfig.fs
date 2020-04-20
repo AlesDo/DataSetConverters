@@ -7,5 +7,4 @@ open BenchmarkDotNet.Exporters
 type PlotExporterConfig() as this =
    inherit ManualConfig()
    do
-       this.Add(CsvMeasurementsExporter.Default)
-       this.Add(RPlotExporter.Default)
+       this.AddExporter(CsvMeasurementsExporter.Default, RPlotExporter.Default) |> ignore
