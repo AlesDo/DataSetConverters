@@ -47,7 +47,7 @@ type DataSetDeSerialization() =
         binaryFormatterDataSet.Close()
         dataContractSerializerDataSet.Close()
 
-    [<Benchmark(Description = "Json.NET\r\rDataSetConverters")>]
+    [<Benchmark(Description = "Json.NET\r\rDataSet Converters")>]
     member this.JsonDotNetDataSetConverters() =
         JsonConvert.DeserializeObject<TestDataSet>(jsonDataSet, DataSetConverter()) |> ignore
 

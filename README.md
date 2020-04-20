@@ -82,7 +82,7 @@ In the following chart are the results for deserialization. Here it is visible t
 
 ![Deserialization Performance](Json.Net.DataSetConverters.Benchmarks.DataSetDeSerialization-barplot.png)
 
-[Click here for detailed deserialization performance results](Json.Net.DataSetConverters.Benchmarks.DataSetDeSerialization-barplot.png).
+[Click here for detailed deserialization performance results](Json.Net.DataSetConverters.Benchmarks.DataSetDeSerialization-report-github.md).
 
 ## Why F#
 
