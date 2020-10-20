@@ -150,13 +150,16 @@ let ``DataTable serialize deserialize rows with string values`` (string1: string
    Assert.Equal<obj>(columnValues :> seq<obj>, deserializedDataTable.Rows.Item(0).ItemArray :> seq<obj>, objectEqualityComparer)
 
 [<Property>]
-let ``DataTable serialize deserialize rows with decimal and float values`` (decimalValue: decimal, floatValue: float, doubleValue: double) =
+let ``DataTable serialize deserialize rows with decimal and float values`` (decimalValue: decimal, floatValue: float, doubleValue: double, nullableDecimalValue: decimal option, nullableFloatValue: float option, nullableDoubleValue: double option) =
    let dataTable = new DataTable()
    dataTable.Columns.Add("decimal", typeof<decimal>) |> ignore
    dataTable.Columns.Add("float", typeof<float>) |> ignore
    dataTable.Columns.Add("double", typeof<double>) |> ignore
+   dataTable.Columns.Add("nullable decimal", typeof<decimal>) |> ignore
+   dataTable.Columns.Add("nullable float", typeof<float>) |> ignore
+   dataTable.Columns.Add("nullable double", typeof<double>) |> ignore
 
-   let columnValues: obj [] = [| decimalValue; floatValue; doubleValue |]
+   let columnValues: obj [] = [| decimalValue; floatValue; doubleValue; optionToDbNull nullableDecimalValue; optionToDbNull nullableFloatValue; optionToDbNull nullableDoubleValue |]
    dataTable.LoadDataRow(columnValues, LoadOption.Upsert) |> ignore
    let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
    let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
