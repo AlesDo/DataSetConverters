@@ -94,7 +94,7 @@ module JsonSerializationExtensions =
             if serializer.NullValueHandling <> NullValueHandling.Ignore || not(isNull(propertyValue)) then
                 this.WritePropertyName(if not (isNull contractResolver) then contractResolver.GetResolvedPropertyName(propertyName) else propertyName)
                 match propertyType with
-                | t when t = typeof<decimal> -> serializer.Serialize(this, (propertyValue :?> decimal).ToString("F28", CultureInfo.InvariantCulture))
+                | t when t = typeof<decimal> && not (isNull propertyValue) -> serializer.Serialize(this, (propertyValue :?> decimal).ToString("F28", CultureInfo.InvariantCulture))
                 | _ -> serializer.Serialize(this, propertyValue)
 
         member this.WriteRowValuePropertyToOutput(serializer: JsonSerializer, contractResolver: DefaultContractResolver, propertyName: string, propertyType: Type, propertyValue: obj) =
