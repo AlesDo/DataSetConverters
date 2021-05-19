@@ -10,6 +10,8 @@ open System.Globalization
 open FsCheckGenerators
 open Comparers
 open Json.Net.DataSetConverters.Tests.TypedDataSets
+open System.Xml.Serialization
+open System.IO
 
 [<Fact>]
 let ``Empty DataSet serialize deserialize`` () =
@@ -295,4 +297,37 @@ let ``DataSet serialize deserialize typed dataset with multiple tables with rela
 
    Assert.NotNull(deserializedDataSet)
    Assert.Equal(typedDataSet, deserializedDataSet, dataSetComparer)
+
+let SerializeAndDeserializeXml (dataSet: DataSet) =
+    let xmlSerializer = new XmlSerializer(typeof<DataSet>)
+    use stringWriter = new StringWriter()
+    xmlSerializer.Serialize(stringWriter, dataSet)
+    let xml = stringWriter.ToString()
+    let stringReader = new StringReader(xml)
+
+    xmlSerializer.Deserialize(stringReader) :?> DataSet
+
+[<Fact>]
+let ``DataSet serialize deserialize XML matches serialize deserialize JSON on row with BeginEdit without end edit`` () =
+   let dataSet = new DataSet()
+   let dataTable = dataSet.Tables.Add("table")
+   dataTable.Columns.Add("Value") |> ignore;
+   dataTable.Columns.Add("Value1") |> ignore;
+   let row = dataTable.Rows.Add("Old", "xxx");
+   dataSet.AcceptChanges();
+
+   row.BeginEdit();
+   row.[0] <- "New";
+
+   let expectedDataSet = SerializeAndDeserializeXml(dataSet)
+   let jsonDataSet = JsonConvert.SerializeObject(dataSet, DataSetConverter())
+   let deserializedDataSet = JsonConvert.DeserializeObject<DataSet>(jsonDataSet, DataSetConverter())
+   let deserializedRow = deserializedDataSet.Tables.[0].Rows.[0];
+
+   Assert.Equal("New", deserializedRow.Field<string>(0, DataRowVersion.Default))
+   Assert.Equal("New", deserializedRow.Field<string>(0, DataRowVersion.Original))
+   Assert.Equal("New", deserializedRow.Field<string>(0, DataRowVersion.Current))
+
+   Assert.Equal(expectedDataSet, deserializedDataSet, dataSetComparer)
+
 
