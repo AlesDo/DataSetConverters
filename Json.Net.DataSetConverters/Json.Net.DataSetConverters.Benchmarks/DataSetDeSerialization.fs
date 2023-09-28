@@ -11,7 +11,7 @@ open DataSetGenerator
 open ExporterConfig
 open BenchmarkDotNet.Jobs
 
-[<SimpleJob(RuntimeMoniker.NetCoreApp31); MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
+[<SimpleJob(RuntimeMoniker.Net70); MemoryDiagnoser; Config(typeof<PlotExporterConfig>); RPlotExporter>]
 type DataSetDeSerialization() =
 
     let binaryFormatterDataSet = new MemoryStream()

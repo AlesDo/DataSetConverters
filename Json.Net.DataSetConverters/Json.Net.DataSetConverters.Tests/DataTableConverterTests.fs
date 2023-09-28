@@ -93,7 +93,8 @@ let ``DataTable serialize deserialize validate Prefix`` (prefix: string) =
     Assert.Equal(dataTable.Prefix, deserializedDataTable.Prefix)
 
 [<Property>]
-let ``DataTable serialize deserialize validate RemotingFormat`` (remotingFormat: SerializationFormat) = 
+let ``DataTable serialize deserialize validate RemotingFormat`` () =
+    let remotingFormat: SerializationFormat = SerializationFormat.Xml // only test Xml becuse from .NET 7 Binary is not supported
     let dataTable = new DataTable()
     dataTable.RemotingFormat <- remotingFormat
 

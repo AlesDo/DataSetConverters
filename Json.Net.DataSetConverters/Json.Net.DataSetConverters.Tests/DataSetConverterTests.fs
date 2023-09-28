@@ -83,8 +83,9 @@ let ``DataSet serialize deserialize validate Prefix`` (prefix: string) =
 
     Assert.Equal(dataSet.Prefix, deserializedDataSet.Prefix)
 
-[<Property>]
-let ``DataSet serialize deserialize validate RemotingFormat`` (remotingFormat: SerializationFormat) = 
+[<Fact>]
+let ``DataSet serialize deserialize validate RemotingFormat`` () =
+    let remotingFormat: SerializationFormat = SerializationFormat.Xml // only test Xml becuse from .NET 7 Binary is not supported
     let dataSet = new DataSet()
     dataSet.RemotingFormat <- remotingFormat
 
