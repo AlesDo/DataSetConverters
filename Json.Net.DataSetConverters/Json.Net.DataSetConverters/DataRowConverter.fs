@@ -101,8 +101,8 @@ type DataRowConverter(dataTable: DataTable) =
 
         for dataColumn in dataRow.Table.Columns do
             writeColumnValue(writer, serializer, resolver, dataRow, dataColumn, match dataRow.RowState with
-                | DataRowState.Deleted -> DataRowVersion.Original
-                | _ -> if dataRow.HasVersion(DataRowVersion.Proposed) then DataRowVersion.Proposed else DataRowVersion.Current)
+                                                                                    | DataRowState.Deleted -> DataRowVersion.Original
+                                                                                    | _ -> if dataRow.HasVersion(DataRowVersion.Proposed) then DataRowVersion.Proposed else DataRowVersion.Current)
 
         writer.WritePropertyToOutput(serializer, resolver, RowState, dataRow.RowState)
         writer.WriteEndObject()
