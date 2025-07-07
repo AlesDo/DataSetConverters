@@ -3,6 +3,7 @@
 open System
 open Xunit
 open FsCheck
+open FsCheck.FSharp
 open FsCheck.Xunit
 open System.Data
 open Json.Net.DataSetConverters
@@ -21,9 +22,9 @@ let ``Empty table serialize deserialize`` () =
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
 
     Assert.Equal(dataTable.TableName, deserializedDataTable.TableName)
-    
+
 [<Property(Arbitrary =[| typeof<MyGenerators> |])>]
-let ``DataTable serialize deserialize validate TableName`` (tableName: string) = 
+let ``DataTable serialize deserialize validate TableName`` (tableName: string) =
     let dataTable = new DataTable(tableName)
 
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
@@ -32,7 +33,7 @@ let ``DataTable serialize deserialize validate TableName`` (tableName: string) =
     Assert.Equal(dataTable.TableName, deserializedDataTable.TableName)
 
 [<Property>]
-let ``DataTable serialize deserialize validate CaseSensitive`` (caseSensitive: bool) = 
+let ``DataTable serialize deserialize validate CaseSensitive`` (caseSensitive: bool) =
     let dataTable = new DataTable()
     dataTable.CaseSensitive <- caseSensitive
 
@@ -42,7 +43,7 @@ let ``DataTable serialize deserialize validate CaseSensitive`` (caseSensitive: b
     Assert.Equal(dataTable.CaseSensitive, deserializedDataTable.CaseSensitive)
 
 [<Property(Arbitrary =[| typeof<MyGenerators> |])>]
-let ``DataTable serialize deserialize validate DisplayExpression`` (displayExpression: string) = 
+let ``DataTable serialize deserialize validate DisplayExpression`` (displayExpression: string) =
     let dataTable = new DataTable()
     dataTable.Columns.Add(displayExpression) |> ignore
     dataTable.DisplayExpression <- String.Format("Convert([{0}], 'System.String')", displayExpression)
@@ -53,7 +54,7 @@ let ``DataTable serialize deserialize validate DisplayExpression`` (displayExpre
     Assert.Equal(dataTable.DisplayExpression, deserializedDataTable.DisplayExpression)
 
 [<Property>]
-let ``DataTable serialize deserialize validate Locale`` (locale: CultureInfo) = 
+let ``DataTable serialize deserialize validate Locale`` (locale: CultureInfo) =
     let dataTable = new DataTable()
     dataTable.Locale <- locale
 
@@ -63,33 +64,33 @@ let ``DataTable serialize deserialize validate Locale`` (locale: CultureInfo) =
     Assert.Equal(dataTable.Locale, deserializedDataTable.Locale)
 
 [<Property>]
-let ``DataTable serialize deserialize validate MinimumCapacity`` (minimumCapacity: NonNegativeInt) = 
+let ``DataTable serialize deserialize validate MinimumCapacity`` (minimumCapacity: NonNegativeInt) =
     let dataTable = new DataTable()
     dataTable.MinimumCapacity <- minimumCapacity.Get
 
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
-    
+
     Assert.Equal(dataTable.MinimumCapacity, deserializedDataTable.MinimumCapacity)
 
 [<Property>]
-let ``DataTable serialize deserialize validate Namespace`` (namespaceName: string) = 
+let ``DataTable serialize deserialize validate Namespace`` (namespaceName: string) =
     let dataTable = new DataTable()
     dataTable.Namespace <- namespaceName
 
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
-    
+
     Assert.Equal(dataTable.Namespace, deserializedDataTable.Namespace)
 
 [<Property(Arbitrary =[| typeof<PrefixGenerators> |])>]
-let ``DataTable serialize deserialize validate Prefix`` (prefix: string) = 
+let ``DataTable serialize deserialize validate Prefix`` (prefix: string) =
     let dataTable = new DataTable()
     dataTable.Prefix <- prefix
 
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
-    
+
     Assert.Equal(dataTable.Prefix, deserializedDataTable.Prefix)
 
 [<Property>]
@@ -100,10 +101,10 @@ let ``DataTable serialize deserialize validate RemotingFormat`` () =
 
     let jsonDataTable = JsonConvert.SerializeObject(dataTable, DataTableConverter())
     let deserializedDataTable = JsonConvert.DeserializeObject<DataTable>(jsonDataTable, DataTableConverter())
-    
+
     Assert.Equal(dataTable.RemotingFormat, deserializedDataTable.RemotingFormat)
 
-let columnDataGenerator = (Arb.Default.String(), Gen.elements [typeof<int>, typeof<int16>, typeof<string>, typeof<bool>, typeof<decimal>, typeof<float>, typeof<double>, typeof<byte[]>])
+let columnDataGenerator = (ArbMap.defaults.ArbFor<String>(), Gen.elements [typeof<int>, typeof<int16>, typeof<string>, typeof<bool>, typeof<decimal>, typeof<float>, typeof<double>, typeof<byte[]>])
 
 [<Property(Arbitrary =[| typeof<MyGenerators> |])>]
 let ``DataTable serialize deserialize columns`` (dataColumns: DataColumn[]) =
@@ -267,7 +268,7 @@ let ``DataTable serialize deserialize rows preserves row state and original valu
    Assert.Equal("string2", deserializedDataTable.Rows.[1].["string2", DataRowVersion.Original] :?> string)
 
 [<Property>]
-let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: uint16) = 
+let ``DataTable serialize deserialize auto increment column with changed row`` (numberOfRows: uint16) =
     let dataTable = new DataTable()
     dataTable.Columns.Add(new DataColumn (ColumnName = "Id", DataType = typeof<int>, AutoIncrement = true, Unique = true, ReadOnly = true))
     dataTable.Columns.Add("Value", typeof<int>) |> ignore
@@ -311,4 +312,4 @@ let ``DataTable serialize deserialize object column with object type`` (value1: 
    Assert.Equal(columnValues.[0].Value, (deserializedDataTable.Rows.Item(0).ItemArray.[0] :?> JObject).Value<string>("Value"))
    Assert.Equal(columnValues.[1].Key, (deserializedDataTable.Rows.Item(0).ItemArray.[1] :?> JObject).Value<int>("Key"))
    Assert.Equal(columnValues.[1].Value, (deserializedDataTable.Rows.Item(0).ItemArray.[1] :?> JObject).Value<string>("Value"))
-   
+
