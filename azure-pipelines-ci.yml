@@ -25,8 +25,9 @@ steps:
     command: 'build'
     projects: $(solution)
     arguments: '--configuration $(buildConfiguration)'
-
+  
 - task: DotNetCoreCLI@2
+  displayName: Run tests
   inputs:
-    command: 'test'
-    projects: '$(solution)'
+    command: run
+    workingDirectory: '$(Build.SourcesDirectory)/Json.Net.DataSetConverters/Json.Net.DataSetConverters.Tests'

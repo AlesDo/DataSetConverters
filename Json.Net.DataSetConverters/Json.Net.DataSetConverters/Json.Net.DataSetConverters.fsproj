@@ -3,20 +3,18 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>Ales Doganoc</Authors>
     <Company></Company>
     <RepositoryUrl>https://github.com/AlesDo/DataSetConverters</RepositoryUrl>
     <Description>DataSet converters for Json.NET that provide full serialization for DataSets and DataTables. They preserve all the state like the serialization built in the standard .NET serializers. This enables the use of JSON serialization for all scenarios where DataSets or DataTables are used.</Description>
-    <Copyright>Copyright © Ales Doganoc 2019</Copyright>
+    <Copyright>Copyright © Ales Doganoc 2026</Copyright>
     <PackageTags>json dataset serialization</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-
     <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-
     <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -39,16 +37,16 @@
     <Compile Include="DataSetConverter.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.400">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.300" />
+    <PackageReference Update="FSharp.Core" Version="10.1.400" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.400" PrivateAssets="All" />
   </ItemGroup>
 </Project>
