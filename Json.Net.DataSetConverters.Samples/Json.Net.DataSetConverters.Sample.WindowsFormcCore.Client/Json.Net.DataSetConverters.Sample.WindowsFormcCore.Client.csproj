@@ -9,7 +9,7 @@
   </PropertyGroup>
    
   <ItemGroup>
-    <PackageReference Include="Json.Net.DataSetConverters" Version="1.2.0" />
+    <PackageReference Include="Json.Net.DataSetConverters" Version="1.2.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
   </ItemGroup>
 
